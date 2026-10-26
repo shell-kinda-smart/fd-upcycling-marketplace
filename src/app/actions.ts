@@ -125,6 +125,30 @@ export async function removeCartItem(fd: FormData) {
   revalidatePath("/", "layout");
   revalidatePath("/cart");
 }
+
+export async function updateCartQuantity(fd: FormData) {
+  const id = await userId();
+  const cartItemId = String(fd.get("id"));
+  const delta = parseInt(String(fd.get("delta") || "0"), 10);
+  if (!cartItemId || isNaN(delta) || delta === 0) return;
+
+  const item = await prisma.cartItem.findFirst({
+    where: { id: cartItemId, userId: id },
+  });
+  if (!item) return;
+
+  const newQty = item.quantity + delta;
+  if (newQty <= 0) {
+    await prisma.cartItem.delete({ where: { id: cartItemId } });
+  } else {
+    await prisma.cartItem.update({
+      where: { id: cartItemId },
+      data: { quantity: newQty },
+    });
+  }
+  revalidatePath("/", "layout");
+  revalidatePath("/cart");
+}
 async function requireAdmin() {
   const s = await auth();
   if (!s?.user?.id) redirect("/signin");
@@ -142,10 +166,15 @@ export async function checkout(fd: FormData) {
     include: { product: true },
   });
   if (!cart.length) redirect("/cart");
-  const total = cart.reduce(
+  const subtotal = cart.reduce(
     (s, x) => s + x.product.price.toNumber() * x.quantity,
     0,
   );
+  const discountAmount = Math.min(
+    subtotal,
+    Math.max(0, parseFloat(p.data.discountAmount || "0") || 0),
+  );
+  const total = Math.max(0, subtotal - discountAmount);
   const isRazorpay =
     p.data.paymentMethod === "RAZORPAY" ||
     p.data.paymentMethod === "RAZORPAY_DEMO";

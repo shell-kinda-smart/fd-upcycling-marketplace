@@ -41,4 +41,6 @@ export const checkoutSchema = z.object({
     .pipe(z.enum(["RAZORPAY", "RAZORPAY_DEMO", "UPI", "CARD", "COD"])),
   razorpayPaymentId: z.string().optional(),
   razorpayOrderId: z.string().optional(),
+  discountAmount: z.string().optional(),
+  couponCode: z.string().optional(),
 });
