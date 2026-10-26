@@ -49,7 +49,15 @@ export default async function Cart({
       )}
 
       <CheckoutView
-        items={items}
+        items={items.map((x) => ({
+          ...x,
+          product: {
+            ...x.product,
+            price: typeof x.product.price === "number"
+              ? x.product.price
+              : Number(x.product.price),
+          },
+        }))}
         user={user || { name: s.user.name, email: s.user.email }}
       />
     </main>

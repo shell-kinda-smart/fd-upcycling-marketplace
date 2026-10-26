@@ -35,13 +35,25 @@ declare global {
   }
 }
 
+function toPriceNumber(val: unknown): number {
+  if (typeof val === "number") return val;
+  if (!val) return 0;
+  if (typeof val === "object" && val !== null) {
+    if ("toNumber" in val && typeof (val as { toNumber?: unknown }).toNumber === "function") {
+      return (val as { toNumber: () => number }).toNumber();
+    }
+  }
+  const n = Number(val);
+  return Number.isNaN(n) ? 0 : n;
+}
+
 interface CartItemWithProduct {
   id: string;
   quantity: number;
   product: {
     id: string;
     name: string;
-    price: { toNumber(): number } | number;
+    price: unknown;
     category: string;
     material: string;
     imageUrl: string | null;
@@ -99,11 +111,7 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
 
   // Subtotal calculation
   const subtotal = items.reduce((acc, item) => {
-    const priceNum =
-      typeof item.product.price === "number"
-        ? item.product.price
-        : item.product.price.toNumber();
-    return acc + priceNum * item.quantity;
+    return acc + toPriceNumber(item.product.price) * item.quantity;
   }, 0);
 
   // Discount calculation
@@ -284,10 +292,7 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
 
             <div className="mt-4 divide-y divide-slate-100">
               {items.map((x) => {
-                const itemPrice =
-                  typeof x.product.price === "number"
-                    ? x.product.price
-                    : x.product.price.toNumber();
+                const itemPrice = toPriceNumber(x.product.price);
                 return (
                   <div
                     key={x.id}
