@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  BUYER
+  CREATOR
+  BOTH
+  ADMIN
+}
+
+enum ProductStatus {
+  ACTIVE
+  SOLD
+  ARCHIVED
+}
+
+enum OrderStatus {
+  CONFIRMED
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum TradeStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+model User {
+  id           String          @id @default(cuid())
+  name         String
+  email        String          @unique
+  passwordHash String
+  role         Role            @default(BOTH)
+  college      String?
+  createdAt    DateTime        @default(now())
+  products     Product[]
+  cartItems    CartItem[]
+  orders       Order[]
+  trades       TradeProposal[]
+}
+
+model Product {
+  id           String          @id @default(cuid())
+  sellerId     String?
+  name         String
+  price        Decimal
+  category     String
+  material     String
+  story        String
+  symbol       String          @default("♻")
+  tradeEnabled Boolean         @default(false)
+  status       ProductStatus   @default(ACTIVE)
+  imageUrl     String?
+  createdAt    DateTime        @default(now())
+  seller       User?           @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  cartItems    CartItem[]
+  orderItems   OrderItem[]
+  trades       TradeProposal[]
+
+  @@index([category, status])
+}
+
+model CartItem {
+  id        String  @id @default(cuid())
+  userId    String
+  productId String
+  quantity  Int     @default(1)
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+}
+
+model Order {
+  id                String      @id @default(cuid())
+  buyerId           String
+  total             Decimal
+  paymentMethod     String
+  paymentStatus     String      @default("DEMO_PAID")
+  status            OrderStatus @default(CONFIRMED)
+  shippingAddress   String
+  razorpayPaymentId String?
+  razorpayOrderId   String?
+  createdAt         DateTime    @default(now())
+  buyer             User        @relation(fields: [buyerId], references: [id])
+  items             OrderItem[]
+
+  @@index([buyerId, createdAt])
+}
+
+model OrderItem {
+  id          String   @id @default(cuid())
+  orderId     String
+  productId   String?
+  productName String
+  price       Decimal
+  quantity    Int
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product     Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+}
+
+model TradeProposal {
+  id          String      @id @default(cuid())
+  requesterId String
+  productId   String
+  offerText   String
+  status      TradeStatus @default(PENDING)
+  createdAt   DateTime    @default(now())
+  requester   User        @relation(fields: [requesterId], references: [id])
+  product     Product     @relation(fields: [productId], references: [id])
+}

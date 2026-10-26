@@ -13,6 +13,9 @@
 # testing
 /coverage
 
+# local SQLite data
+/prisma/dev.db*
+
 # next.js
 /.next/
 /out/
