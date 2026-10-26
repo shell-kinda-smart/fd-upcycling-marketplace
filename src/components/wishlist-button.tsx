@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { Heart } from "lucide-react";
 
 interface WishlistButtonProps {
@@ -37,6 +37,8 @@ export function WishlistButton({
   className = "",
   size = "sm",
 }: WishlistButtonProps) {
+  const [feedback, setFeedback] = useState<string | null>(null);
+
   const wishlistJson = useSyncExternalStore(
     subscribe,
     getWishlistSnapshot,
@@ -55,11 +57,15 @@ export function WishlistButton({
       let updated: string[];
       if (saved.includes(productId)) {
         updated = saved.filter((id) => id !== productId);
+        setFeedback("Removed");
       } else {
         updated = [...saved, productId];
+        setFeedback("Saved ❤️");
       }
       localStorage.setItem("rethread_wishlist", JSON.stringify(updated));
       window.dispatchEvent(new Event("wishlist-updated"));
+
+      setTimeout(() => setFeedback(null), 1500);
     } catch {
       // Fallback
     }
@@ -78,24 +84,33 @@ export function WishlistButton({
   };
 
   return (
-    <button
-      type="button"
-      onClick={toggleWishlist}
-      aria-label={
-        isSaved
-          ? `Remove ${productName || "item"} from favorites`
-          : `Save ${productName || "item"} to favorites`
-      }
-      title={isSaved ? "Saved to favorites" : "Save to favorites"}
-      className={`grid place-items-center rounded-full border border-slate-200 bg-white/90 backdrop-blur-xs transition hover:scale-110 active:scale-95 shadow-xs ${btnSizes[size]} ${className}`}
-    >
-      <Heart
-        className={`${iconSizes[size]} transition ${
+    <div className="relative inline-flex items-center">
+      <button
+        type="button"
+        onClick={toggleWishlist}
+        aria-label={
           isSaved
-            ? "fill-[#cf5036] text-[#cf5036]"
-            : "text-slate-600 hover:text-[#cf5036]"
-        }`}
-      />
-    </button>
+            ? `Remove ${productName || "item"} from favorites`
+            : `Save ${productName || "item"} to favorites`
+        }
+        title={isSaved ? "Saved to favorites" : "Save to favorites"}
+        className={`grid place-items-center rounded-full border border-slate-200 bg-white/95 backdrop-blur-xs transition hover:scale-110 active:scale-95 shadow-xs ${btnSizes[size]} ${className}`}
+      >
+        <Heart
+          className={`${iconSizes[size]} transition ${
+            isSaved
+              ? "fill-[#cf5036] text-[#cf5036] scale-110"
+              : "text-slate-600 hover:text-[#cf5036]"
+          }`}
+        />
+      </button>
+
+      {/* Instant click feedback chip */}
+      {feedback && (
+        <span className="absolute -top-7 right-0 z-30 whitespace-nowrap rounded bg-[#0c2340] px-1.5 py-0.5 text-[10px] font-bold text-white shadow-md animate-in fade-in zoom-in-90">
+          {feedback}
+        </span>
+      )}
+    </div>
   );
 }

@@ -2,16 +2,17 @@ import Link from "next/link";
 import {
   Leaf,
   LogOut,
-  PlusCircle,
   ShoppingBag,
   Store,
   UserRound,
   ArrowRightLeft,
   ShieldCheck,
+  Heart,
 } from "lucide-react";
 import { auth } from "@/auth";
 import { logoutAction } from "@/app/actions";
 import { prisma } from "@/lib/prisma";
+import { WishlistHeaderCount } from "@/components/wishlist-header-count";
 
 export async function Header() {
   const session = await auth();
@@ -38,7 +39,7 @@ export async function Header() {
 
   const mobileLinks = [
     { href: "/marketplace", label: "Shop", Icon: Store },
-    { href: "/sell", label: "Sell", Icon: PlusCircle },
+    { href: "/wishlist", label: "Saved", Icon: Heart },
     { href: "/cart", label: `Bag (${count})`, Icon: ShoppingBag },
     { href: "/trades", label: "Trades", Icon: ArrowRightLeft },
     {
@@ -100,6 +101,8 @@ export async function Header() {
 
           {/* Right Action Buttons */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <WishlistHeaderCount />
+
             {session?.user ? (
               <>
                 <Link

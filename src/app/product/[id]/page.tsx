@@ -6,7 +6,6 @@ import {
   ArrowRightLeft,
   CheckCircle2,
   Leaf,
-  Plus,
   ShieldCheck,
   Truck,
   Droplets,
@@ -19,8 +18,9 @@ import {
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { inr } from "@/lib/commerce";
-import { addToCart, buyNow, proposeTrade } from "@/app/actions";
+import { buyNow, proposeTrade } from "@/app/actions";
 import { WishlistButton } from "@/components/wishlist-button";
+import { AddToCartButton } from "@/components/add-to-cart-button";
 
 export default async function ProductDetailPage({
   params,
@@ -170,12 +170,15 @@ export default async function ProductDetailPage({
           <div className="mt-8 space-y-4">
             {session ? (
               <div className="flex flex-col gap-3 sm:flex-row">
-                <form action={addToCart} className="flex-1">
-                  <input type="hidden" name="productId" value={product.id} />
-                  <button className="btn btn-primary w-full py-3.5 text-sm font-bold flex items-center justify-center gap-2">
-                    <Plus className="size-4" /> Add to Bag · {inr(product.price.toNumber())}
-                  </button>
-                </form>
+                <div className="flex-1">
+                  <AddToCartButton
+                    productId={product.id}
+                    productName={product.name}
+                    variant="full"
+                    priceFormatted={inr(product.price.toNumber())}
+                    isLoggedIn={Boolean(session?.user?.id)}
+                  />
+                </div>
                 <form action={buyNow} className="sm:w-auto w-full">
                   <input type="hidden" name="productId" value={product.id} />
                   <button

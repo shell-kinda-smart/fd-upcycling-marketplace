@@ -3,17 +3,18 @@ import Image from "next/image";
 import {
   ArrowRightLeft,
   PackageSearch,
-  Plus,
   Search,
   SlidersHorizontal,
   X,
   Sparkles,
+  Heart,
 } from "lucide-react";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { inr } from "@/lib/commerce";
-import { addToCart, proposeTrade } from "@/app/actions";
+import { proposeTrade } from "@/app/actions";
 import { WishlistButton } from "@/components/wishlist-button";
+import { AddToCartButton } from "@/components/add-to-cart-button";
 
 interface MarketplaceProps {
   searchParams: Promise<{
@@ -241,6 +242,16 @@ export default async function Marketplace({ searchParams }: MarketplaceProps) {
         >
           ♻ Trade Open Only
         </Link>
+
+        {/* Saved Wishlist Link */}
+        <Link
+          href="/wishlist"
+          className="rounded px-2.5 py-1 text-xs font-bold transition border border-rose-200 bg-rose-50 text-rose-800 hover:bg-rose-100 flex items-center gap-1"
+          title="View your saved wishlist items"
+        >
+          <Heart className="size-3 fill-rose-600 text-rose-600" />
+          <span>Saved</span>
+        </Link>
       </div>
 
       {/* Product Catalog Grid */}
@@ -332,27 +343,12 @@ export default async function Marketplace({ searchParams }: MarketplaceProps) {
                 </b>
               </Link>
 
-              {session ? (
-                <form action={addToCart}>
-                  <input type="hidden" name="productId" value={p.id} />
-                  <button
-                    className="grid size-8 sm:size-9 place-items-center rounded bg-[#29243d] text-white transition hover:bg-[#cf5036] active:scale-95"
-                    aria-label={`Add ${p.name} to bag`}
-                    title="Add to bag"
-                  >
-                    <Plus className="size-4" />
-                  </button>
-                </form>
-              ) : (
-                <Link
-                  className="grid size-8 sm:size-9 place-items-center rounded bg-[#29243d] text-white transition hover:bg-[#cf5036]"
-                  href="/signin"
-                  aria-label="Sign in to add product"
-                  title="Sign in to add product"
-                >
-                  <Plus className="size-4" />
-                </Link>
-              )}
+              <AddToCartButton
+                productId={p.id}
+                productName={p.name}
+                variant="icon"
+                isLoggedIn={Boolean(session?.user?.id)}
+              />
             </div>
           </article>
         ))}

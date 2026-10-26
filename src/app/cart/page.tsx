@@ -25,6 +25,27 @@ export default async function Cart({
     }),
   ]);
 
+  const cleanItems = items.map((x) => ({
+    id: x.id,
+    quantity: x.quantity,
+    product: {
+      id: x.product.id,
+      name: x.product.name,
+      price: Number(x.product.price),
+      category: x.product.category,
+      material: x.product.material,
+      imageUrl: x.product.imageUrl || null,
+      symbol: x.product.symbol,
+      tradeEnabled: Boolean(x.product.tradeEnabled),
+    },
+  }));
+
+  const cleanUser = {
+    name: user?.name || s.user.name || null,
+    email: user?.email || s.user.email || null,
+    college: user?.college || null,
+  };
+
   return (
     <main className="mx-auto min-h-screen max-w-7xl px-3 sm:px-6 py-8 sm:py-12">
       <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-2 border-[#29243d] pb-4">
@@ -49,16 +70,8 @@ export default async function Cart({
       )}
 
       <CheckoutView
-        items={items.map((x) => ({
-          ...x,
-          product: {
-            ...x.product,
-            price: typeof x.product.price === "number"
-              ? x.product.price
-              : Number(x.product.price),
-          },
-        }))}
-        user={user || { name: s.user.name, email: s.user.email }}
+        items={cleanItems}
+        user={cleanUser}
       />
     </main>
   );

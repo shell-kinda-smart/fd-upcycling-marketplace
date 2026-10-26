@@ -8,6 +8,7 @@ import {
   ReceiptText,
   ShieldCheck,
   ArrowRight,
+  Heart,
 } from "lucide-react";
 import { auth } from "@/auth";
 import { updateProfile } from "@/app/actions";
@@ -92,7 +93,7 @@ export default async function Profile({
       {/* Account Navigation Quick Links */}
       <section className="mt-10">
         <p className="eyebrow">QUICK ACCESS</p>
-        <div className="mt-3 grid gap-4 sm:grid-cols-3">
+        <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Link
             href="/listings"
             className="card flex items-center justify-between p-4 transition hover:-translate-y-0.5"
@@ -102,6 +103,20 @@ export default async function Profile({
               <div>
                 <b className="block text-sm">Your Listings</b>
                 <span className="text-xs text-slate-500">Manage products</span>
+              </div>
+            </div>
+            <ArrowRight className="size-4 text-slate-400" />
+          </Link>
+
+          <Link
+            href="/wishlist"
+            className="card flex items-center justify-between p-4 transition hover:-translate-y-0.5"
+          >
+            <div className="flex items-center gap-3">
+              <Heart className="size-5 text-rose-600" />
+              <div>
+                <b className="block text-sm">Saved Wishlist</b>
+                <span className="text-xs text-slate-500">Favorited pieces</span>
               </div>
             </div>
             <ArrowRight className="size-4 text-slate-400" />

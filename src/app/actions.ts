@@ -83,6 +83,26 @@ export async function updateProductStatus(fd: FormData) {
   revalidatePath("/listings");
   revalidatePath("/marketplace");
 }
+export async function addToCartDirect(productId: string) {
+  const s = await auth();
+  if (!s?.user?.id) {
+    return { success: false, requireAuth: true };
+  }
+  const product = await prisma.product.findFirst({
+    where: { id: productId, status: "ACTIVE" },
+  });
+  if (!product) return { success: false, error: "Product not available" };
+  await prisma.cartItem.upsert({
+    where: { userId_productId: { userId: s.user.id, productId } },
+    update: { quantity: { increment: 1 } },
+    create: { userId: s.user.id, productId, quantity: 1 },
+  });
+  revalidatePath("/", "layout");
+  revalidatePath("/marketplace");
+  revalidatePath("/cart");
+  return { success: true };
+}
+
 export async function addToCart(fd: FormData) {
   const id = await userId(),
     productId = String(fd.get("productId"));
