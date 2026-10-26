@@ -89,12 +89,14 @@ export async function addToCart(fd: FormData) {
   const product = await prisma.product.findFirst({
     where: { id: productId, status: "ACTIVE" },
   });
-  if (!product || product.sellerId === id) return;
+  if (!product) return;
   await prisma.cartItem.upsert({
     where: { userId_productId: { userId: id, productId } },
-    update: {},
-    create: { userId: id, productId },
+    update: { quantity: { increment: 1 } },
+    create: { userId: id, productId, quantity: 1 },
   });
+  revalidatePath("/", "layout");
+  revalidatePath("/marketplace");
   revalidatePath("/cart");
 }
 
@@ -104,13 +106,15 @@ export async function buyNow(fd: FormData) {
   const product = await prisma.product.findFirst({
     where: { id: productId, status: "ACTIVE" },
   });
-  if (product && product.sellerId !== id) {
+  if (product) {
     await prisma.cartItem.upsert({
       where: { userId_productId: { userId: id, productId } },
-      update: {},
-      create: { userId: id, productId },
+      update: { quantity: { increment: 1 } },
+      create: { userId: id, productId, quantity: 1 },
     });
   }
+  revalidatePath("/", "layout");
+  revalidatePath("/cart");
   redirect("/cart");
 }
 export async function removeCartItem(fd: FormData) {
@@ -118,6 +122,7 @@ export async function removeCartItem(fd: FormData) {
   await prisma.cartItem.deleteMany({
     where: { id: String(fd.get("id")), userId: id },
   });
+  revalidatePath("/", "layout");
   revalidatePath("/cart");
 }
 async function requireAdmin() {
@@ -184,9 +189,10 @@ export async function checkout(fd: FormData) {
       data: { status: "SOLD" },
     });
     await tx.cartItem.deleteMany({
-      where: { productId: { in: purchasedProductIds } },
+      where: { userId: id, productId: { in: purchasedProductIds } },
     });
   });
+  revalidatePath("/", "layout");
   revalidatePath("/marketplace");
   revalidatePath("/orders");
   revalidatePath("/cart");

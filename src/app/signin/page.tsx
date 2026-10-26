@@ -105,7 +105,7 @@ export default function SignIn() {
         </form>
 
         <p className="mt-6 text-center text-xs text-slate-600">
-          New student creator or buyer?{" "}
+          New creator or buyer?{" "}
           <Link className="font-bold text-[#cf5036] hover:underline" href="/register">
             Create an account
           </Link>

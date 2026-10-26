@@ -36,7 +36,7 @@ export default async function Marketplace({
   return (
     <main className="mx-auto min-h-screen max-w-7xl px-3 sm:px-6 py-8 sm:py-12">
       <div className="max-w-2xl">
-        <p className="eyebrow">CURATED BY STUDENT MAKERS</p>
+        <p className="eyebrow">CURATED ARTISAN MARKETPLACE</p>
         <h1 className="mt-1.5 text-2xl sm:text-4xl font-black tracking-[-.05em] text-slate-900">
           Find your next statement piece.
         </h1>

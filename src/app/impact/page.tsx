@@ -19,7 +19,7 @@ export default async function Impact() {
           {[
             [String(count), "items recirculated"],
             [`${(count * 0.75).toFixed(1)} kg`, "estimated waste diverted"],
-            ["Local", "student makers"],
+            ["Verified", "artisan creators"],
           ].map(([v, l]) => (
             <article key={l} className="border-l border-white/20 p-4 sm:p-6">
               <b className="text-3xl">{v}</b>
@@ -64,7 +64,7 @@ export default async function Impact() {
         <div>
           <p className="eyebrow !text-[#29243d]">PRACTICAL OUTCOME</p>
           <h2 className="mt-2 text-2xl font-black">
-            Student creativity becomes circular commerce.
+            Artisan creativity becomes circular commerce.
           </h2>
         </div>
         <Sprout className="size-12 text-[#29243d]" />

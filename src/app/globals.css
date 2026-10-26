@@ -75,7 +75,7 @@ body {
   color: #fff;
   background: var(--orange);
 }
-input,
+input:not([type="checkbox"]):not([type="radio"]),
 select,
 textarea {
   width: 100%;
@@ -85,13 +85,23 @@ textarea {
   padding: 0.75rem;
   outline: none;
 }
+input[type="checkbox"],
+input[type="radio"] {
+  width: 1.1rem !important;
+  height: 1.1rem !important;
+  min-width: 1.1rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  flex-shrink: 0 !important;
+  cursor: pointer;
+}
 input:focus,
 select:focus,
 textarea:focus {
   border-color: var(--orange);
   box-shadow: 0 0 0 3px #cf503615;
 }
-label {
+label:not([class*="flex"]) {
   display: block;
   font-size: 0.75rem;
   font-weight: 800;

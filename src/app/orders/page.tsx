@@ -182,7 +182,7 @@ export default async function Orders({
           <PackageOpen className="size-10 text-[#cf5036]" />
           <p className="mt-3 text-base font-bold text-slate-800">No orders yet.</p>
           <p className="mt-1 text-xs text-slate-500">
-            Start browsing upcycled pieces created by student designers.
+            Start browsing upcycled pieces created by verified artisans.
           </p>
           <Link href="/marketplace" className="btn btn-primary mt-4 text-xs font-bold">
             Explore marketplace <ArrowRight className="size-3.5" />

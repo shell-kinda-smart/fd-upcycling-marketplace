@@ -97,7 +97,7 @@ export default async function Cart({
             <div className="card grid place-items-center p-8 sm:p-12 text-center">
               <ShoppingBag className="size-10 text-[#cf5036]" />
               <p className="mt-3 font-bold text-base text-slate-800">Your bag is empty.</p>
-              <p className="mt-1 text-xs text-slate-500">Discover unique upcycled pieces crafted by student designers.</p>
+              <p className="mt-1 text-xs text-slate-500">Discover unique upcycled pieces crafted by independent artisans.</p>
               <Link className="btn btn-primary mt-5 text-xs font-bold" href="/marketplace">
                 Browse products <ArrowRight className="size-3.5" />
               </Link>
@@ -105,7 +105,7 @@ export default async function Cart({
           )}
         </div>
 
-        <article className="card p-5 sm:p-6 h-fit">
+        <article className="card p-5 sm:p-6 h-fit w-full overflow-hidden">
           <p className="eyebrow flex items-center gap-1.5">
             <CreditCard className="size-3.5 text-[#cf5036]" /> ORDER SUMMARY
           </p>

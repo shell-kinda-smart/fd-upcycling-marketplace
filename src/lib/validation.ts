@@ -35,13 +35,10 @@ export const productSchema = z.object({
 
 export const checkoutSchema = z.object({
   address: z.string().trim().min(5).max(300),
-  paymentMethod: z.enum([
-    "RAZORPAY",
-    "RAZORPAY_DEMO",
-    "UPI",
-    "CARD",
-    "COD",
-  ]),
+  paymentMethod: z
+    .string()
+    .transform((val) => val.toUpperCase())
+    .pipe(z.enum(["RAZORPAY", "RAZORPAY_DEMO", "UPI", "CARD", "COD"])),
   razorpayPaymentId: z.string().optional(),
   razorpayOrderId: z.string().optional(),
 });

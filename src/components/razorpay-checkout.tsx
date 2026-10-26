@@ -49,7 +49,7 @@ export function RazorpayCheckout({
 
   // Form inputs for Razorpay Modal
   const phone = "+91 98765 43210";
-  const [upiId, setUpiId] = useState("maker.student@okhdfcbank");
+  const [upiId, setUpiId] = useState("artisan@okhdfcbank");
   const [cardNumber, setCardNumber] = useState("4111 1111 1111 1111");
   const [cardExpiry, setCardExpiry] = useState("12/28");
   const [cardCvv, setCardCvv] = useState("123");
@@ -106,8 +106,8 @@ export function RazorpayCheckout({
           name: "ReThread FD Marketplace",
           description: "Circular Upcycled Fashion Order",
           prefill: {
-            name: user.name || "Student Maker",
-            email: user.email || "buyer@rethread.market",
+            name: user.name || "Artisan Maker",
+            email: user.email || "shopper@rethread.market",
             contact: "9876543210",
           },
           theme: { color: "#0c2340" },
@@ -162,69 +162,71 @@ export function RazorpayCheckout({
           />
         </label>
 
-        <div>
-          <label className="block text-xs font-bold text-slate-700">Payment Option</label>
-          <div className="mt-2 space-y-2">
-            <label
-              className={`flex cursor-pointer items-center justify-between rounded-lg border-2 p-3 transition ${
+        <div className="w-full">
+          <span className="block text-xs font-bold text-slate-700">Payment Option</span>
+          <div className="mt-2 space-y-2.5 w-full">
+            <div
+              onClick={() => setPaymentMethod("RAZORPAY")}
+              className={`flex cursor-pointer items-center justify-between rounded-lg border-2 p-3 transition w-full ${
                 paymentMethod === "RAZORPAY"
                   ? "border-[#0c2340] bg-[#f0f4f9]"
                   : "border-slate-200 bg-white hover:border-slate-300"
               }`}
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 min-w-0 flex-1">
                 <input
                   type="radio"
                   name="paymentChoice"
                   checked={paymentMethod === "RAZORPAY"}
                   onChange={() => setPaymentMethod("RAZORPAY")}
-                  className="size-4 text-[#0c2340]"
+                  className="size-4 shrink-0 cursor-pointer accent-[#0c2340]"
                 />
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-black text-[#0c2340]">
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <span className="text-xs sm:text-sm font-black text-[#0c2340]">
                       Razorpay
                     </span>
                     <span className="rounded bg-[#0c2340] px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-white">
                       SECURE
                     </span>
                   </div>
-                  <p className="text-[11px] text-slate-600">
-                    UPI (Google Pay, PhonePe, Paytm), Cards, Netbanking
+                  <p className="text-[11px] text-slate-600 truncate">
+                    UPI, Cards, Netbanking
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-1 text-[11px] font-bold text-[#0c2340]">
-                <Lock className="size-3.5 text-blue-700" />
+              <div className="flex items-center gap-1 text-[10px] sm:text-[11px] font-bold text-[#0c2340] shrink-0 ml-1.5">
+                <Lock className="size-3 text-blue-700" />
                 <span className="hidden sm:inline">256-Bit SSL</span>
               </div>
-            </label>
+            </div>
 
-            <label
-              className={`flex cursor-pointer items-center justify-between rounded-lg border-2 p-3 transition ${
+            <div
+              onClick={() => setPaymentMethod("COD")}
+              className={`flex cursor-pointer items-center justify-between rounded-lg border-2 p-3 transition w-full ${
                 paymentMethod === "COD"
                   ? "border-[#29243d] bg-[#fff5e9]"
                   : "border-slate-200 bg-white hover:border-slate-300"
               }`}
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 min-w-0 flex-1">
                 <input
                   type="radio"
                   name="paymentChoice"
                   checked={paymentMethod === "COD"}
                   onChange={() => setPaymentMethod("COD")}
-                  className="size-4 text-[#cf5036]"
+                  className="size-4 shrink-0 cursor-pointer accent-[#cf5036]"
                 />
-                <div>
-                  <b className="text-sm font-bold text-slate-900">
+                <div className="min-w-0 flex-1">
+                  <b className="block text-xs sm:text-sm font-bold text-slate-900 truncate">
                     Cash on Delivery (COD)
                   </b>
-                  <p className="text-[11px] text-slate-500">
-                    Pay upon item handover or campus pickup
+                  <p className="text-[11px] text-slate-500 truncate">
+                    Pay upon item handover
                   </p>
                 </div>
               </div>
-            </label>
+            </div>
           </div>
         </div>
 
@@ -281,7 +283,7 @@ export function RazorpayCheckout({
 
               {/* User preview bar */}
               <div className="mt-3 flex items-center justify-between rounded bg-white/10 px-3 py-1.5 text-[11px] text-blue-100">
-                <span className="truncate max-w-[200px]">{user.email || "student@rethread.market"}</span>
+                <span className="truncate max-w-[200px]">{user.email || "shopper@rethread.market"}</span>
                 <span className="font-mono text-[10px]">{phone}</span>
               </div>
             </div>

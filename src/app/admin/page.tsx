@@ -74,7 +74,7 @@ export default async function AdminPage() {
             <span className="font-bold uppercase text-[#cf5036]">{currentUser?.role}</span>.
           </p>
           <div className="mt-6 rounded bg-[#fff5e9] p-5 text-left text-sm">
-            <b className="block font-bold">To test Admin in evaluation:</b>
+            <b className="block font-bold">Administrator Console Access:</b>
             <p className="mt-1 text-slate-600">
               Run this command in the terminal to grant admin privileges to your email:
             </p>

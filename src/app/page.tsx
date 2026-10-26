@@ -28,10 +28,10 @@ export default function Home() {
           </h1>
 
           <p className="mt-5 max-w-xl text-base sm:text-lg leading-relaxed text-slate-600">
-            A full-stack circular fashion marketplace where student designers
+            A circular fashion marketplace where independent designers
             and makers buy, sell, and trade upcycled pieces. Features verified
             creator profiles, secure <strong>Razorpay payment integration</strong>,
-            and peer-to-peer trade proposals.
+            and peer-to-peer trade swaps.
           </p>
 
           <div className="mt-7 flex flex-wrap gap-3 sm:gap-4">
