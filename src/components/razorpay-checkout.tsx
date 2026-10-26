@@ -184,7 +184,7 @@ export function RazorpayCheckout({
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-1.5 flex-wrap">
                     <span className="text-xs sm:text-sm font-black text-[#0c2340]">
-                      Razorpay
+                      Online Payment (UPI / Cards / Netbanking)
                     </span>
                     <span className="rounded bg-[#0c2340] px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-white">
                       SECURE
@@ -241,7 +241,7 @@ export function RazorpayCheckout({
             </>
           ) : paymentMethod === "RAZORPAY" ? (
             <>
-              <Lock className="size-4" /> Pay ₹{total.toLocaleString("en-IN")} via Razorpay
+              <Lock className="size-4" /> Pay ₹{total.toLocaleString("en-IN")} Online
             </>
           ) : (
             <>
@@ -260,14 +260,14 @@ export function RazorpayCheckout({
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
                   <div className="grid size-8 place-items-center rounded bg-[#0b72e7] font-black text-white text-sm">
-                    R
+                    <ShieldCheck className="size-5" />
                   </div>
                   <div>
                     <h3 className="text-sm font-black tracking-tight">
-                      ReThread FD Marketplace
+                      ReThread Marketplace
                     </h3>
                     <p className="text-[10px] text-blue-200">
-                      Razorpay Checkout
+                      Secure Checkout
                     </p>
                   </div>
                 </div>
@@ -374,7 +374,7 @@ export function RazorpayCheckout({
                       <div className="flex items-center gap-2 rounded-lg bg-blue-50 p-2.5 text-[11px] text-blue-900">
                         <QrCode className="size-4 shrink-0 text-blue-600" />
                         <span>
-                          Instant UPI authorization with 256-bit Razorpay bank routing.
+                          Instant UPI authorization with 256-bit bank routing.
                         </span>
                       </div>
                     </div>
@@ -491,7 +491,7 @@ export function RazorpayCheckout({
                   </button>
                   <div className="flex items-center justify-center gap-1 text-[10px] text-slate-500">
                     <ShieldCheck className="size-3 text-green-600" />
-                    <span>Secured with 256-bit SSL encryption by Razorpay</span>
+                    <span>Secured with 256-bit SSL encryption</span>
                   </div>
                 </div>
               </div>
@@ -502,7 +502,7 @@ export function RazorpayCheckout({
               <div className="flex min-h-[300px] flex-col items-center justify-center p-8 text-center">
                 <Loader2 className="size-12 animate-spin text-[#0b72e7]" />
                 <h4 className="mt-4 font-bold text-slate-800">
-                  Securing Transaction with Razorpay...
+                  Securing Transaction...
                 </h4>
                 <p className="mt-1 text-xs text-slate-500">
                   Creating encrypted channel for ₹{total.toLocaleString("en-IN")}

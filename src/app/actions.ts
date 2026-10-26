@@ -197,7 +197,7 @@ export async function checkout(fd: FormData) {
       data: {
         buyerId: id,
         total,
-        paymentMethod: isRazorpay ? "Razorpay" : p.data.paymentMethod,
+        paymentMethod: isRazorpay ? "Online Payment" : p.data.paymentMethod,
         paymentStatus,
         shippingAddress: p.data.address,
         razorpayPaymentId,

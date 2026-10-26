@@ -67,8 +67,8 @@ export default async function Trades() {
         Trade proposals.
       </h1>
       <p className="mt-3 max-w-2xl text-slate-600">
-        Exchange upcycled pieces directly with fellow creators and students. Accept
-        an offer to finalize the swap and mark the item as traded.
+        Exchange upcycled pieces directly with fellow creators and collectors. Accept
+        an offer to finalize the exchange and mark the item as traded.
       </p>
 
       {/* Section 1: Received Proposals */}

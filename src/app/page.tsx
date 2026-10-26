@@ -5,8 +5,7 @@ import {
   ShieldCheck,
   ShoppingBag,
   Sparkles,
-  ArrowRightLeft,
-  CreditCard,
+  Leaf,
 } from "lucide-react";
 
 export default function Home() {
@@ -28,10 +27,8 @@ export default function Home() {
           </h1>
 
           <p className="mt-5 max-w-xl text-base sm:text-lg leading-relaxed text-slate-600">
-            A circular fashion marketplace where independent designers
-            and makers buy, sell, and trade upcycled pieces. Features verified
-            creator profiles, secure <strong>Razorpay payment integration</strong>,
-            and peer-to-peer trade swaps.
+            A curated circular marketplace for independent designers and conscious collectors.
+            Discover, buy, and exchange one-of-a-kind upcycled garments and handcrafted pieces.
           </p>
 
           <div className="mt-7 flex flex-wrap gap-3 sm:gap-4">
@@ -46,19 +43,19 @@ export default function Home() {
 
           <div className="mt-10 grid grid-cols-3 gap-2 sm:gap-6 border-t border-slate-200/80 pt-6">
             <Stat
-              icon={<CreditCard />}
-              value="Razorpay"
-              label="Secure Payments"
+              icon={<Leaf />}
+              value="100%"
+              label="Rescued Materials"
             />
             <Stat
-              icon={<ArrowRightLeft />}
-              value="P2P Swaps"
-              label="Direct Trades"
+              icon={<Sparkles />}
+              value="Unique"
+              label="One-of-a-Kind"
             />
             <Stat
               icon={<ShieldCheck />}
               value="Verified"
-              label="Maker Accounts"
+              label="Artisan Creators"
             />
           </div>
         </div>

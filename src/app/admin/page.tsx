@@ -233,7 +233,7 @@ export default async function AdminPage() {
       <section className="mt-10">
         <div className="border-b-2 border-[#29243d] pb-2.5">
           <h2 className="text-lg sm:text-xl font-bold flex items-center gap-2">
-            <CreditCard className="size-4 sm:size-5 text-[#cf5036]" /> Order Fulfillment & Razorpay Log
+            <CreditCard className="size-4 sm:size-5 text-[#cf5036]" /> Order Fulfillment & Payment Logs
           </h2>
         </div>
         <div className="mt-4 card overflow-hidden">

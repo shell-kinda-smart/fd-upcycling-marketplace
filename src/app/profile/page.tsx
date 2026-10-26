@@ -114,7 +114,7 @@ export default async function Profile({
             <div className="flex items-center gap-3">
               <ArrowRightLeft className="size-5 text-purple-700" />
               <div>
-                <b className="block text-sm">Trade Swaps</b>
+                <b className="block text-sm">Item Exchanges</b>
                 <span className="text-xs text-slate-500">Incoming & Sent</span>
               </div>
             </div>

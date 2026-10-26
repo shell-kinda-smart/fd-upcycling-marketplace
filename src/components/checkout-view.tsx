@@ -506,7 +506,7 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
                   <div>
                     <div className="flex items-center gap-2 flex-wrap">
                       <span className="text-sm font-black text-[#0c2340]">
-                        Razorpay Secure Gateway
+                        Online Payment (UPI, Cards, Netbanking)
                       </span>
                       <span className="rounded bg-[#0c2340] px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-white">
                         INSTANT VERIFIED
@@ -658,7 +658,7 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
                   </>
                 ) : paymentMethod === "RAZORPAY" ? (
                   <>
-                    <Lock className="size-4 text-[#f3c94b]" /> Pay {inr(finalTotal)} via Razorpay
+                    <Lock className="size-4 text-[#f3c94b]" /> Pay {inr(finalTotal)} Online
                   </>
                 ) : (
                   <>
@@ -672,7 +672,7 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
             <div className="mt-5 space-y-2 border-t border-slate-100 pt-4 text-[11px] text-slate-500">
               <div className="flex items-center gap-2">
                 <ShieldCheck className="size-4 text-emerald-700 shrink-0" />
-                <span>100% Encrypted Payment with Razorpay</span>
+                <span>100% Secure Encrypted Payment</span>
               </div>
               <div className="flex items-center gap-2">
                 <Truck className="size-4 text-slate-600 shrink-0" />
@@ -696,11 +696,11 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div className="grid size-8 place-items-center rounded bg-blue-600 text-white font-bold text-sm">
-                    R
+                    <ShieldCheck className="size-5" />
                   </div>
                   <div>
-                    <b className="block text-sm font-black leading-tight">Razorpay</b>
-                    <span className="text-[10px] text-blue-200">Trusted Business Checkout</span>
+                    <b className="block text-sm font-black leading-tight">Secure Payment Gateway</b>
+                    <span className="text-[10px] text-blue-200">256-Bit SSL Encrypted</span>
                   </div>
                 </div>
 
@@ -883,7 +883,7 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
                     <Lock className="size-4 text-[#f3c94b]" /> Pay {inr(finalTotal)}
                   </button>
                   <p className="mt-2 text-center text-[10px] text-slate-400">
-                    Secured by Razorpay · 256-Bit SSL Handshake
+                    Secured Gateway · 256-Bit SSL Handshake
                   </p>
                 </div>
               </div>
@@ -894,7 +894,7 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
               <div className="p-8 text-center space-y-4">
                 <Loader2 className="mx-auto size-12 animate-spin text-[#0c2340]" />
                 <h3 className="text-base font-black text-slate-900">Connecting to Bank Switch...</h3>
-                <p className="text-xs text-slate-500">Initiating 256-bit encrypted transaction with Razorpay.</p>
+                <p className="text-xs text-slate-500">Initiating 256-bit encrypted transaction.</p>
               </div>
             )}
 

@@ -46,7 +46,7 @@ export default async function Orders({
                 Payment Confirmed & Order Placed!
               </h2>
               <p className="mt-1 text-xs sm:text-sm text-green-800">
-                Your transaction has been securely processed via <strong>Razorpay</strong>. The maker has received your order and will prepare dispatch.
+                Your transaction has been securely processed. The maker has received your order and will prepare dispatch.
               </p>
               {params.pay_id && (
                 <div className="mt-2 inline-flex items-center gap-1.5 rounded bg-green-200/80 px-2.5 py-1 text-[11px] font-mono font-bold text-green-950 break-all">
@@ -99,9 +99,9 @@ export default async function Orders({
               </div>
 
               <div className="flex flex-wrap items-center gap-2 shrink-0">
-                {o.paymentMethod.toLowerCase().includes("razorpay") ? (
+                {o.paymentMethod.toLowerCase().includes("online") || o.paymentMethod.toLowerCase().includes("razorpay") ? (
                   <span className="flex items-center gap-1 rounded bg-[#0c2340] px-2.5 py-1 text-[11px] font-bold text-white">
-                    <Lock className="size-3 text-[#f3c94b]" /> Razorpay
+                    <Lock className="size-3 text-[#f3c94b]" /> Online Payment
                   </span>
                 ) : (
                   <span className="rounded bg-slate-200 px-2.5 py-1 text-[11px] font-bold text-slate-800">
@@ -169,8 +169,8 @@ export default async function Orders({
 
             {o.razorpayPaymentId && (
               <div className="mt-2.5 border-t border-dashed border-slate-200 pt-2 text-[10px] font-mono text-slate-500 break-all">
-                Razorpay ID: <strong className="text-slate-700">{o.razorpayPaymentId}</strong>
-                {o.razorpayOrderId && ` · Order ID: ${o.razorpayOrderId}`}
+                Payment Ref: <strong className="text-slate-700">{o.razorpayPaymentId}</strong>
+                {o.razorpayOrderId && ` · Gateway Ref: ${o.razorpayOrderId}`}
               </div>
             )}
           </article>

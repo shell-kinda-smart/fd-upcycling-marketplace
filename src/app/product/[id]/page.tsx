@@ -182,7 +182,7 @@ export default async function ProductDetailPage({
                     type="submit"
                     className="btn border-2 border-[#0c2340] bg-[#0c2340] py-3.5 px-6 text-center text-sm font-bold text-white hover:bg-[#1a385e] w-full flex items-center justify-center gap-2"
                   >
-                    <Lock className="size-4 text-[#f3c94b]" /> Buy with Razorpay
+                    <Lock className="size-4 text-[#f3c94b]" /> Instant Buy Now
                   </button>
                 </form>
               </div>
@@ -229,7 +229,7 @@ export default async function ProductDetailPage({
               </span>
               <span>·</span>
               <span className="flex items-center gap-1">
-                <ShieldCheck className="size-3.5 text-green-700" /> Razorpay 256-Bit SSL Protected
+                <ShieldCheck className="size-3.5 text-green-700" /> 256-Bit SSL Encrypted Checkout
               </span>
             </div>
           </div>
@@ -307,9 +307,9 @@ export default async function ProductDetailPage({
                   author: "Meera K.",
                   date: "2 weeks ago",
                   rating: 5,
-                  title: "Seamless Razorpay checkout and fast delivery.",
+                  title: "Seamless checkout and fast delivery.",
                   review:
-                    "Paid via UPI through Razorpay, got instant confirmation, and the parcel arrived in 3 days. Clean packaging and exact color match.",
+                    "Paid via UPI with instant confirmation, and the parcel arrived in 3 days. Clean packaging and exact color match.",
                 },
               ].map((rev) => (
                 <div key={rev.author} className="rounded-lg border border-slate-200 bg-white p-4 shadow-2xs">
