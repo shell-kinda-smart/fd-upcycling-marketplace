@@ -168,14 +168,14 @@ export default async function AdminPage() {
                 <tr key={p.id} className="hover:bg-slate-50">
                   <td className="p-3">
                     <div className="flex items-center gap-3">
-                      <div className="relative size-10 shrink-0 overflow-hidden rounded bg-[#d8e2df]">
+                      <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded bg-[#d8e2df]">
                         {p.imageUrl ? (
                           <Image
                             src={p.imageUrl}
                             alt={p.name}
-                            fill
-                            sizes="40px"
-                            className="object-cover"
+                            width={40}
+                            height={40}
+                            className="h-10 w-10 object-cover"
                           />
                         ) : (
                           <span className="grid size-full place-items-center text-sm">

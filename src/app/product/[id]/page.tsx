@@ -67,18 +67,18 @@ export default async function ProductDetailPage({
 
       <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
         {/* Left: Product Image */}
-        <div className="relative aspect-square overflow-hidden rounded-2xl border-2 border-[#29243d] bg-[#d8e2df] shadow-[8px_8px_0_#29243d18]">
+        <div className="relative overflow-hidden rounded-2xl border-2 border-[#29243d] bg-[#d8e2df] shadow-[8px_8px_0_#29243d18]">
           {product.imageUrl ? (
             <Image
               src={product.imageUrl}
               alt={product.name}
-              fill
+              width={700}
+              height={700}
               priority
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover"
+              className="aspect-square w-full object-cover"
             />
           ) : (
-            <span className="grid size-full place-items-center text-9xl">
+            <span className="grid aspect-square w-full place-items-center text-9xl">
               {product.symbol}
             </span>
           )}
@@ -251,14 +251,14 @@ export default async function ProductDetailPage({
                 href={`/product/${rp.id}`}
                 className="card overflow-hidden transition hover:-translate-y-1"
               >
-                <div className="relative h-48 bg-[#d8e2df]">
+                <div className="relative h-48 w-full bg-[#d8e2df]">
                   {rp.imageUrl ? (
                     <Image
                       src={rp.imageUrl}
                       alt={rp.name}
-                      fill
-                      sizes="(max-width: 640px) 100vw, 33vw"
-                      className="object-cover"
+                      width={400}
+                      height={300}
+                      className="h-48 w-full object-cover"
                     />
                   ) : (
                     <span className="grid size-full place-items-center text-4xl">

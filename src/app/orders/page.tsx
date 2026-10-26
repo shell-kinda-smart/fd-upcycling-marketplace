@@ -122,14 +122,14 @@ export default async function Orders({
                   className="flex items-center justify-between gap-3 rounded bg-[#fff5e9]/50 p-2 sm:p-2.5 text-xs sm:text-sm"
                 >
                   <div className="flex items-center gap-2.5 min-w-0">
-                    <div className="relative size-10 sm:size-12 shrink-0 overflow-hidden rounded bg-[#d8e2df]">
+                    <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded bg-[#d8e2df]">
                       {item.product?.imageUrl ? (
                         <Image
                           src={item.product.imageUrl}
                           alt={item.productName}
-                          fill
-                          sizes="48px"
-                          className="object-cover"
+                          width={48}
+                          height={48}
+                          className="h-12 w-12 object-cover"
                         />
                       ) : (
                         <span className="grid size-full place-items-center text-lg">

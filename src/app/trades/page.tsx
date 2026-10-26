@@ -88,14 +88,14 @@ export default async function Trades() {
               key={trade.id}
               className="card grid items-center gap-5 p-5 md:grid-cols-[80px_1fr_auto]"
             >
-              <div className="relative size-20 overflow-hidden rounded bg-[#d8e2df]">
+              <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded bg-[#d8e2df]">
                 {trade.product.imageUrl ? (
                   <Image
                     src={trade.product.imageUrl}
                     alt={trade.product.name}
-                    fill
-                    sizes="80px"
-                    className="object-cover"
+                    width={80}
+                    height={80}
+                    className="h-20 w-20 object-cover"
                   />
                 ) : (
                   <span className="grid size-full place-items-center text-2xl">
@@ -187,14 +187,14 @@ export default async function Trades() {
               key={trade.id}
               className="card grid items-center gap-5 p-5 md:grid-cols-[70px_1fr_auto]"
             >
-              <div className="relative size-16 overflow-hidden rounded bg-[#d8e2df]">
+              <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded bg-[#d8e2df]">
                 {trade.product.imageUrl ? (
                   <Image
                     src={trade.product.imageUrl}
                     alt={trade.product.name}
-                    fill
-                    sizes="64px"
-                    className="object-cover"
+                    width={64}
+                    height={64}
+                    className="h-16 w-16 object-cover"
                   />
                 ) : (
                   <span className="grid size-full place-items-center text-xl">

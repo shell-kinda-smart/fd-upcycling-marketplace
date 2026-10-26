@@ -64,24 +64,22 @@ export default function Home() {
         </div>
 
         {/* Hero Product Card with Real Image */}
-        <div className="relative min-h-[380px] sm:min-h-[460px] lg:min-h-[500px] w-full overflow-hidden rounded-2xl sm:rounded-[2rem_2rem_5rem_2rem] border-2 border-[#29243d] bg-[#ead1ba] shadow-[8px_8px_0_#29243d18]">
-          <div className="absolute inset-0">
-            <Image
-              src="/products/rethread-denim-revival-tote.jpg"
-              alt="Denim Revival Tote"
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#29243d]/90 via-transparent to-black/20" />
-          </div>
+        <div className="relative h-[380px] sm:h-[460px] lg:h-[500px] w-full overflow-hidden rounded-2xl sm:rounded-[2rem_2rem_5rem_2rem] border-2 border-[#29243d] bg-[#ead1ba] shadow-[8px_8px_0_#29243d18]">
+          <Image
+            src="/products/rethread-denim-revival-tote.jpg"
+            alt="Denim Revival Tote"
+            width={900}
+            height={600}
+            priority
+            className="h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#29243d]/90 via-transparent to-black/20" />
 
-          <div className="absolute left-4 top-4 sm:left-6 sm:top-6 rounded-full border border-[#29243d] bg-[#f3c94b] px-3 py-1 text-[11px] font-black text-[#29243d] shadow-sm">
+          <div className="absolute left-4 top-4 sm:left-6 sm:top-6 rounded-full border border-[#29243d] bg-[#f3c94b] px-3 py-1 text-[11px] font-black text-[#29243d] shadow-sm z-10">
             ♻ 100% UPCYCLED DENIM
           </div>
 
-          <div className="absolute bottom-0 inset-x-0 bg-[#29243d]/95 p-4 sm:p-6 text-white backdrop-blur-xs">
+          <div className="absolute bottom-0 inset-x-0 bg-[#29243d]/95 p-4 sm:p-6 text-white backdrop-blur-xs z-10">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
               <div>
                 <small className="font-bold text-[#f3c94b] uppercase tracking-wider text-[10px] sm:text-xs">
@@ -143,15 +141,15 @@ export default function Home() {
             <Link
               key={cat.name}
               href={`/marketplace?category=${cat.name}`}
-              className="card group overflow-hidden transition hover:-translate-y-1"
+              className="card group overflow-hidden transition hover:-translate-y-1 block"
             >
-              <div className="relative h-28 sm:h-36 overflow-hidden bg-slate-100">
+              <div className="relative h-32 sm:h-40 w-full overflow-hidden bg-slate-100">
                 <Image
                   src={cat.img}
                   alt={cat.name}
-                  fill
-                  sizes="25vw"
-                  className="object-cover transition duration-300 group-hover:scale-105"
+                  width={400}
+                  height={250}
+                  className="h-32 sm:h-40 w-full object-cover transition duration-300 group-hover:scale-105"
                 />
               </div>
               <div className="p-3 sm:p-4">

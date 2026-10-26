@@ -25,19 +25,21 @@ export default async function Listings() {
             key={p.id}
             className="card grid items-center gap-4 p-5 sm:grid-cols-[55px_1fr_auto]"
           >
-            <span className="relative grid size-14 place-items-center overflow-hidden bg-[#f1ddd0] text-2xl">
+            <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded bg-[#f1ddd0]">
               {p.imageUrl ? (
                 <Image
                   src={p.imageUrl}
                   alt={p.name}
-                  fill
-                  sizes="56px"
-                  className="object-cover"
+                  width={56}
+                  height={56}
+                  className="h-14 w-14 object-cover"
                 />
               ) : (
-                p.symbol
+                <span className="grid size-full place-items-center text-2xl">
+                  {p.symbol}
+                </span>
               )}
-            </span>
+            </div>
             <div>
               <h2 className="font-bold">{p.name}</h2>
               <p className="text-sm text-slate-500">

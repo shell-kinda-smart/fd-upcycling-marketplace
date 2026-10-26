@@ -52,19 +52,21 @@ export default async function Cart({
               key={x.id}
               className="card relative grid grid-cols-[52px_1fr_auto] items-center gap-3 p-3.5 sm:grid-cols-[60px_1fr_auto_auto] sm:gap-4 sm:p-4"
             >
-              <span className="relative grid size-12 sm:size-14 place-items-center overflow-hidden rounded bg-[#f1ddd0] text-2xl shrink-0">
+              <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded bg-[#f1ddd0]">
                 {x.product.imageUrl ? (
                   <Image
                     src={x.product.imageUrl}
                     alt={x.product.name}
-                    fill
-                    sizes="60px"
-                    className="object-cover"
+                    width={56}
+                    height={56}
+                    className="h-14 w-14 object-cover"
                   />
                 ) : (
-                  x.product.symbol
+                  <span className="grid size-full place-items-center text-2xl">
+                    {x.product.symbol}
+                  </span>
                 )}
-              </span>
+              </div>
               <div className="min-w-0 pr-6 sm:pr-0">
                 <b className="block text-xs sm:text-sm font-bold truncate text-slate-900">
                   {x.product.name}

@@ -91,15 +91,15 @@ export default async function Marketplace({
             <div>
               <Link
                 href={`/product/${p.id}`}
-                className="relative block aspect-[4/3] w-full overflow-hidden bg-[#d8e2df]"
+                className="relative block h-48 w-full overflow-hidden bg-[#d8e2df]"
               >
                 {p.imageUrl ? (
                   <Image
                     src={p.imageUrl}
                     alt={p.name}
-                    fill
-                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                    className="object-cover transition duration-300 group-hover:scale-105"
+                    width={400}
+                    height={300}
+                    className="h-48 w-full object-cover transition duration-300 group-hover:scale-105"
                   />
                 ) : (
                   <span className="grid size-full place-items-center text-5xl">

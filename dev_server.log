@@ -1,0 +1,17 @@
+
+> fd-upcycling-marketplace@0.1.0 dev
+> next dev
+
+▲ Next.js 16.4.3 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.4:3000
+- Environments: .env
+✓ Ready in 154ms
+✓ Running next.config.ts took 14ms
+
+[browser] Image with src "http://localhost:3000/products/rethread-coffee-sack-backpack.jpg" has "fill" and a height value of 0. This is likely because the parent element of the image has not been styled to have a set height.
+[browser] Image with src "http://localhost:3000/products/rethread-denim-revival-tote.jpg" has "fill" and a height value of 0. This is likely because the parent element of the image has not been styled to have a set height.
+[browser] Image with src "http://localhost:3000/products/rethread-newspaper-desk-lamp.jpg" has "fill" and a height value of 0. This is likely because the parent element of the image has not been styled to have a set height.
+[browser] Image with src "http://localhost:3000/products/rethread-denim-cutoff-jacket.jpg" has "fill" and a height value of 0. This is likely because the parent element of the image has not been styled to have a set height.
+[browser] Image with src "http://localhost:3000/products/rethread-bottle-cap-studs.jpg" has "fill" and a height value of 0. This is likely because the parent element of the image has not been styled to have a set height.
+ GET / 200 in 263ms (next.js: 112ms, application-code: 151ms)
