@@ -129,7 +129,7 @@ export function RazorpayCheckout({
     setIsOpen(true);
   };
 
-  const handleSimulatePayment = () => {
+  const handleProcessPayment = () => {
     setPaymentState("processing");
     const suffix = Math.random().toString(36).substring(2, 12).toUpperCase();
     const payId = `pay_${suffix}`;
@@ -481,7 +481,7 @@ export function RazorpayCheckout({
                 <div className="shrink-0 border-t border-slate-200 p-4 bg-slate-50 space-y-2">
                   <button
                     type="button"
-                    onClick={handleSimulatePayment}
+                    onClick={handleProcessPayment}
                     className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#0b72e7] py-3 text-sm font-bold text-white transition hover:bg-[#095bc0]"
                   >
                     <span>Pay ₹{total.toLocaleString("en-IN")}</span>

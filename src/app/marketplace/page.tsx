@@ -1,10 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-import { PackageSearch, Plus, Search } from "lucide-react";
+import { ArrowRightLeft, PackageSearch, Plus, Search } from "lucide-react";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { inr } from "@/lib/commerce";
-import { addToCart } from "@/app/actions";
+import { addToCart, proposeTrade } from "@/app/actions";
 
 export default async function Marketplace({
   searchParams,
@@ -131,6 +131,20 @@ export default async function Marketplace({
                   {p.material}
                 </p>
               </div>
+
+              {/* Trade Proposal Section */}
+              {session && p.tradeEnabled && (
+                <details className="mt-2 px-3.5 sm:px-4 pb-1 text-xs text-[#cf5036]">
+                  <summary className="flex cursor-pointer items-center gap-1.5 font-bold">
+                    <ArrowRightLeft className="size-3.5" /> Propose a trade
+                  </summary>
+                  <form action={proposeTrade} className="mt-2 flex gap-2">
+                    <input type="hidden" name="productId" value={p.id} />
+                    <input name="offerText" placeholder="Your offer..." required className="text-xs" />
+                    <button className="btn btn-primary text-xs !px-3 !py-1.5">Send</button>
+                  </form>
+                </details>
+              )}
             </div>
 
             {/* Bottom Price & Add to Bag row */}

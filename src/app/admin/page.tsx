@@ -82,7 +82,7 @@ export default async function AdminPage() {
               npm run admin:grant -- {currentUser?.email}
             </pre>
             <p className="mt-2 text-xs text-slate-500">
-              Or sign in with <code>demo.maker@example.com</code>.
+              Or sign in with the pre-configured admin account from the Sign In page.
             </p>
           </div>
           <Link href="/marketplace" className="btn btn-primary mt-6 text-xs font-bold">

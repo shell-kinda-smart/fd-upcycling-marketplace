@@ -38,11 +38,11 @@ export default function SignIn() {
           </p>
         )}
 
-        {/* Demo Credentials Quick-Fill Box */}
+        {/* Quick Access Accounts */}
         <div className="mt-5 rounded-lg border border-amber-300 bg-amber-50/70 p-3.5 text-xs text-amber-900">
           <div className="flex items-center gap-1.5 font-bold text-amber-950">
             <Sparkles className="size-3.5 text-amber-600" />
-            <span>Classroom Demo Accounts (Click to Fill):</span>
+            <span>Quick Access Accounts (Click to Fill):</span>
           </div>
           <div className="mt-2 flex flex-col gap-2">
             <button
