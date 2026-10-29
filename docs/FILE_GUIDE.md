@@ -17,10 +17,9 @@
 | `src/lib/validation.ts`         | Zod account/product/checkout schemas                  |
 | `src/lib/commerce.ts`           | Cart total, symbols and INR formatting                |
 | `src/lib/prisma.ts`             | Shared database client                                |
-| `prisma/schema.prisma`          | Models, relations, statuses, indexes and money fields |
+| `prisma/schema.prisma`          | PostgreSQL models, relations, indexes and money fields |
 | `prisma/seed.ts`                | Repeat-safe demonstration catalog loader              |
 | `src/lib/commerce.test.ts`      | Unit tests for commerce helpers                       |
-| `prisma/dev.db`                 | Generated local SQLite database file                  |
-| `.env.example`                  | SQLite environment-variable template                  |
+| `.env.example`                  | Safe PostgreSQL environment-variable template         |
 
 Every main feature is a separate URL and `page.tsx`; this is not one HTML file hiding and showing sections.

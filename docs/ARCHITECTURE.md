@@ -9,7 +9,7 @@ Buyer / Seller / Administrator browser
        │    └─ Prisma transaction/query
        └─ Route Handler (/api/products)
                        ↓
-              SQLite database file
+              PostgreSQL database
 ```
 
 ## Main data relationships
@@ -35,4 +35,4 @@ The Sell form calls `createProduct`. The server verifies the session, validates 
 
 `checkout` is a payment-gateway simulation suitable for evaluation: it records the chosen demo method and marks `paymentStatus` as `DEMO_PAID`. In production, the server would create a provider checkout session and update the order only after a signed webhook. Raw card numbers should never enter this database.
 
-SQLite makes the local demonstration portable and server-free. A production deployment with many concurrent users can change the Prisma datasource to managed PostgreSQL without redesigning the application layers.
+Managed PostgreSQL makes data persistent across local and serverless deployments. The `fd_marketplace` schema isolates all marketplace tables from other projects in the same Neon database.

@@ -12,7 +12,7 @@ The objective is to create a dedicated online marketplace where users can buy, s
 
 1. A visitor can browse, search, filter and sort active listings.
 2. A registered user can create a seller listing with material, category, price, story and trade preference.
-3. Products are stored in SQLite and immediately appear in the marketplace.
+3. Products are stored in PostgreSQL and immediately appear in the marketplace.
 4. A buyer adds products to an account-specific cart and places a demo order.
 5. Checkout creates an order and immutable order-item snapshots so history keeps the name and price used at purchase time.
 6. Trade-enabled products accept written proposals, while sellers control listing status.
@@ -20,7 +20,7 @@ The objective is to create a dedicated online marketplace where users can buy, s
 
 ## 3. Development and implementation
 
-The frontend and backend are implemented in one Next.js App Router codebase. React Server Components query server-side data. Server Actions handle registration, profiles, listings, carts, checkout and trades. Zod validates inputs; Auth.js identifies the user; Prisma performs typed SQLite operations.
+The frontend and backend are implemented in one Next.js App Router codebase. React Server Components query server-side data. Server Actions handle registration, profiles, listings, carts, checkout and trades. Zod validates inputs; Auth.js identifies the user; Prisma performs typed PostgreSQL operations.
 
 The data model uses relations between users, products, cart items, orders, order items and trade proposals. Unique constraints prevent duplicate cart rows, indexes help marketplace queries, and status enums prevent invalid lifecycle values.
 
@@ -36,7 +36,7 @@ The data model uses relations between users, products, cart items, orders, order
 | bcryptjs              | Secure password hashing                            |
 | Zod                   | Runtime validation at the server boundary          |
 | Prisma ORM 6          | Typed queries, relations and transactions          |
-| SQLite                | Portable relational marketplace database file      |
+| PostgreSQL            | Hosted relational marketplace database             |
 | Vitest                | Unit tests for commerce helpers                    |
 | ESLint                | Static code-quality checks                         |
 
@@ -60,6 +60,6 @@ The expected outcome is a working niche commerce platform that helps creators ea
 
 **Why Server Actions?** They keep form mutations server-side with typed code and avoid building unnecessary client fetch wrappers for each form.
 
-**Where is the backend?** `src/app/actions.ts`, Auth.js route handlers and `/api/products` are server code. SQLite access never runs in the browser.
+**Where is the backend?** `src/app/actions.ts`, Auth.js route handlers and `/api/products` are server code. PostgreSQL access never runs in the browser.
 
-**Why SQLite?** It provides real relational tables, constraints and transactions without a separate database installation, making the evaluation demo reliable. Prisma allows a later production migration to PostgreSQL.
+**Why PostgreSQL?** It provides durable relational tables, constraints and transactions, while the isolated `fd_marketplace` schema prevents overlap with the finance project.

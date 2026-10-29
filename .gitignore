@@ -13,7 +13,7 @@
 # testing
 /coverage
 
-# local SQLite data
+# legacy local database files
 /prisma/dev.db*
 
 # next.js

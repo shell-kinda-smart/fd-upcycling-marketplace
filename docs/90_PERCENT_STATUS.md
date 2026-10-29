@@ -14,7 +14,7 @@ This was the phase-two checkpoint. The application has since reached the final c
 - Trade proposal submission and trade-enabled products
 - Live impact metrics and products API
 - Server validation, hashed passwords, seed data and unit tests
-- Portable SQLite database, repeat-safe seed data and full documentation set
+- Hosted PostgreSQL database, repeat-safe seed data and full documentation set
 - Purposeful product cards, status badges, empty states, focus feedback and reduced-motion support
 
 ## External production rollout items

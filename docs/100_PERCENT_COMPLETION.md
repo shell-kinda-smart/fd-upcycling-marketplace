@@ -17,7 +17,7 @@ ReThread has been upgraded to **100% feature-complete prototype status** for pro
 - **Transaction Processing Flow**:
   - Live animated progression: _Contacting Gateway_ → _Authorizing OTP_ → _Success Confirmation_.
   - Generates realistic Razorpay Payment IDs (`pay_demo_...`) and Order IDs (`order_demo_...`).
-  - Stores transaction details in SQLite and displays them on the Order History page.
+  - Stores transaction details in PostgreSQL and displays them on the Order History page.
 
 ### 2. Authentic Photographic Product Catalogue
 
@@ -66,7 +66,7 @@ ReThread has been upgraded to **100% feature-complete prototype status** for pro
 | `/listings`     | Manage seller inventory & status                | Server Actions, dynamic revalidation         |
 | `/trades`       | Circular P2P trade proposal hub                 | Prisma transactions, status workflows        |
 | `/cart`         | Bag & Razorpay Demo checkout modal              | React 19 Client Component, Server Actions    |
-| `/orders`       | Order receipts & Razorpay tracking              | SQLite relations, payment ID logs            |
+| `/orders`       | Order receipts & Razorpay tracking              | PostgreSQL relations, payment ID logs        |
 | `/admin`        | Moderation & user/order management              | RBAC checks, admin server mutations          |
 | `/profile`      | User identity & marketplace role                | Auth.js JWT sessions, Prisma updates         |
 | `/impact`       | Live sustainability statistics                  | Aggregated circular economy metrics          |

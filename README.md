@@ -2,7 +2,7 @@
 
 **Topic:** Create an online marketplace where users can buy, sell and trade upcycled FD (Fashion & Design) items. BTech students develop e-commerce functionality with user profiles, payment gateways, product management, and circular trading.
 
-ReThread is a full-stack, multi-page marketplace built with **Next.js 16 (App Router)**, **React 19**, **TypeScript**, **Tailwind CSS v4**, **Auth.js v5**, **Prisma ORM**, and **SQLite**. The evaluation build is **100% complete**, including a built-in **Razorpay Demo Payment Gateway** that requires **no Razorpay merchant account**.
+ReThread is a full-stack, multi-page marketplace built with **Next.js 16 (App Router)**, **React 19**, **TypeScript**, **Tailwind CSS v4**, **Auth.js v5**, **Prisma ORM**, and **PostgreSQL**. The evaluation build is **100% complete**, including a built-in **Razorpay Demo Payment Gateway** that requires **no Razorpay merchant account**.
 
 ---
 
@@ -38,13 +38,13 @@ ReThread is a full-stack, multi-page marketplace built with **Next.js 16 (App Ro
 
 ## 💻 Run Locally
 
-**Requirements:** Node.js 22+. SQLite is embedded and requires no external database server or Docker.
+**Requirements:** Node.js 22+ and a PostgreSQL connection string. The hosted build uses the isolated `fd_marketplace` schema in Neon.
 
 ```bash
 # 1. Install dependencies
 npm install
 
-# 2. Setup SQLite database & seed 50 items with images
+# 2. Create the PostgreSQL tables and seed 50 items with images
 npm run db:setup
 
 # 3. Start development server

@@ -25,7 +25,7 @@ This document is the quick proof that **ReThread is a feature-complete full-stac
 
 - Auth.js manages JWT sessions and protects account-only routes.
 - Prisma handles users, products, cart items, orders and trade proposals.
-- SQLite makes the classroom demo portable with no separate database service.
+- Hosted PostgreSQL keeps classroom and deployed demonstrations durable and consistent.
 - Server Actions implement product, cart, checkout, trade and profile mutations.
 - Zod validates important server inputs and bcrypt hashes passwords.
 - Server-side role checks restrict seller actions to seller-capable accounts, buyer actions to buyer-capable accounts, and administrator actions to administrators.

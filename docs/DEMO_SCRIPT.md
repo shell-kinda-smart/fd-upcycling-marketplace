@@ -11,4 +11,4 @@
 9. In the IDE, show `prisma/schema.prisma`, `src/app/actions.ts` and `.env.example` while explaining the stack.
 10. Finish with `90_PERCENT_STATUS.md`.
 
-Before class: run `npm run db:setup` once. SQLite needs no database server or Docker, and the demo buyer is seeded automatically. Use no real payment details.
+Before class: confirm `DATABASE_URL` points to the `fd_marketplace` PostgreSQL schema, then run `npm run db:setup` once. The demo buyer is seeded automatically. Use no real payment details.

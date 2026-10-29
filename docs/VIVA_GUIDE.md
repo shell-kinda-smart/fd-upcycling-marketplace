@@ -2,12 +2,12 @@
 
 ## 30-second introduction
 
-“ReThread is a full-stack upcycling marketplace for buying, selling and trading FD products. It includes accounts, editable profiles, product discovery and management, cart, demo payment checkout, orders and trade proposals. I built it with Next.js, TypeScript and Tailwind, use SQLite through Prisma, Auth.js for sessions, bcrypt for passwords and Zod for validation.”
+“ReThread is a full-stack upcycling marketplace for buying, selling and trading FD products. It includes accounts, editable profiles, product discovery and management, cart, demo payment checkout, orders and trade proposals. I built it with Next.js, TypeScript and Tailwind, use PostgreSQL through Prisma, Auth.js for sessions, bcrypt for passwords and Zod for validation.”
 
 ## Questions and answers
 
 1. **Frontend vs backend?** React/Tailwind pages are the frontend. Server Actions, APIs, Auth.js and Prisma queries are the backend.
-2. **Why SQLite?** Commerce data is relational, and SQLite provides transactions, constraints and indexed queries without requiring a separate server for the demonstration.
+2. **Why PostgreSQL?** Commerce data is relational, and hosted PostgreSQL provides durable transactions, constraints and indexed queries for both local and Vercel demonstrations.
 3. **Why are order items separate?** They snapshot name, price and quantity at checkout so order history stays correct.
 4. **How do you prevent users editing another seller's listing?** The update condition includes both listing ID and authenticated seller ID.
 5. **What is a compound unique key?** `userId + productId` allows only one cart row per user/product.
