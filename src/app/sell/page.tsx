@@ -2,26 +2,33 @@ import { redirect } from "next/navigation";
 import { PackagePlus, Sparkles } from "lucide-react";
 import { auth } from "@/auth";
 import { createProduct } from "@/app/actions";
+import { prisma } from "@/lib/prisma";
+import { canSell } from "@/lib/access";
 
 export default async function Sell({
   searchParams,
 }: {
   searchParams?: Promise<{ error?: string }>;
 }) {
-  if (!(await auth())?.user) redirect("/signin");
+  const session = await auth();
+  if (!session?.user?.id) redirect("/signin");
+  const user = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: { role: true },
+  });
+  if (!canSell(user?.role)) redirect("/workspace?access=seller");
   const q = searchParams ? await searchParams : {};
 
   return (
     <main className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-[.85fr_1.15fr] lg:gap-16">
       <div>
-        <p className="eyebrow">CREATOR STUDIO</p>
+        <p className="eyebrow">SELLER STUDIO</p>
         <h1 className="mt-3 text-4xl font-black leading-[.95] tracking-[-.07em] sm:text-6xl">
           Made something worth sharing?
         </h1>
         <p className="mt-6 text-slate-500">
-          List your upcycled creations in minutes. Fill in the details, hit
-          publish, and your product goes live on the marketplace for thousands
-          of conscious shoppers to discover.
+          List an upcycled creation in minutes. The product goes live for
+          shoppers once you publish it, and you retain control of its status.
         </p>
         <div className="mt-10 space-y-5">
           {[
@@ -30,9 +37,7 @@ export default async function Sell({
             ["03", "Track sales and manage your listings"],
           ].map(([n, t]) => (
             <p key={n} className="flex items-center gap-4">
-              <b className="grid size-9 place-items-center bg-[#f3c94b]">
-                {n}
-              </b>
+              <b className="grid size-9 place-items-center bg-[#f3c94b]">{n}</b>
               <strong>{t}</strong>
             </p>
           ))}

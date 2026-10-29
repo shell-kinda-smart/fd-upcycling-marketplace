@@ -46,7 +46,8 @@ describe("Razorpay and Checkout validation", () => {
       price: 899,
       category: "Bags",
       material: "Post-consumer denim jeans",
-      story: "Crafted from discarded jeans rescued from campus donation drives.",
+      story:
+        "Crafted from discarded jeans rescued from campus donation drives.",
       imageUrl: "/products/rethread-denim-revival-tote.jpg",
       tradeEnabled: "on",
     });

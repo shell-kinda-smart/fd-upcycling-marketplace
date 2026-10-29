@@ -13,6 +13,7 @@ import {
 import { auth } from "@/auth";
 import { updateProfile } from "@/app/actions";
 import { prisma } from "@/lib/prisma";
+import { canBuy, canSell, roleLabel } from "@/lib/access";
 
 export default async function Profile({
   searchParams,
@@ -28,6 +29,8 @@ export default async function Profile({
   const query = await searchParams;
 
   const isAdmin = user.role === "ADMIN";
+  const buyerEnabled = canBuy(user.role);
+  const sellerEnabled = canSell(user.role);
 
   return (
     <main className="mx-auto min-h-screen max-w-4xl px-4 py-12 sm:px-6 sm:py-16">
@@ -47,7 +50,7 @@ export default async function Profile({
             {user.email}
           </p>
           <span className="mt-2 inline-block rounded bg-[#f3c94b] px-2.5 py-0.5 text-xs font-black text-[#29243d]">
-            {user.role}
+            {roleLabel(user.role)}
           </span>
         </div>
 
@@ -79,8 +82,8 @@ export default async function Profile({
             Marketplace role
             <select name="role" defaultValue={user.role}>
               <option value="BUYER">Buyer</option>
-              <option value="CREATOR">Creator</option>
-              <option value="BOTH">Buyer and creator</option>
+              <option value="CREATOR">Seller</option>
+              <option value="BOTH">Buyer and seller</option>
               {isAdmin && <option value="ADMIN">Admin</option>}
             </select>
           </label>
@@ -95,60 +98,74 @@ export default async function Profile({
         <p className="eyebrow">QUICK ACCESS</p>
         <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Link
-            href="/listings"
+            href="/workspace"
             className="card flex items-center justify-between p-4 transition hover:-translate-y-0.5"
           >
             <div className="flex items-center gap-3">
               <Package className="size-5 text-[#cf5036]" />
               <div>
-                <b className="block text-sm">Your Listings</b>
-                <span className="text-xs text-slate-500">Manage products</span>
+                <b className="block text-sm">Workspace</b>
+                <span className="text-xs text-slate-500">
+                  Role-based overview
+                </span>
               </div>
             </div>
             <ArrowRight className="size-4 text-slate-400" />
           </Link>
 
-          <Link
-            href="/wishlist"
-            className="card flex items-center justify-between p-4 transition hover:-translate-y-0.5"
-          >
-            <div className="flex items-center gap-3">
-              <Heart className="size-5 text-rose-600" />
-              <div>
-                <b className="block text-sm">Saved Wishlist</b>
-                <span className="text-xs text-slate-500">Favorited pieces</span>
+          {buyerEnabled && (
+            <Link
+              href="/wishlist"
+              className="card flex items-center justify-between p-4 transition hover:-translate-y-0.5"
+            >
+              <div className="flex items-center gap-3">
+                <Heart className="size-5 text-rose-600" />
+                <div>
+                  <b className="block text-sm">Saved Wishlist</b>
+                  <span className="text-xs text-slate-500">
+                    Favorited pieces
+                  </span>
+                </div>
               </div>
-            </div>
-            <ArrowRight className="size-4 text-slate-400" />
-          </Link>
+              <ArrowRight className="size-4 text-slate-400" />
+            </Link>
+          )}
 
-          <Link
-            href="/trades"
-            className="card flex items-center justify-between p-4 transition hover:-translate-y-0.5"
-          >
-            <div className="flex items-center gap-3">
-              <ArrowRightLeft className="size-5 text-purple-700" />
-              <div>
-                <b className="block text-sm">Item Exchanges</b>
-                <span className="text-xs text-slate-500">Incoming & Sent</span>
+          {(buyerEnabled || sellerEnabled) && (
+            <Link
+              href="/trades"
+              className="card flex items-center justify-between p-4 transition hover:-translate-y-0.5"
+            >
+              <div className="flex items-center gap-3">
+                <ArrowRightLeft className="size-5 text-purple-700" />
+                <div>
+                  <b className="block text-sm">Item Exchanges</b>
+                  <span className="text-xs text-slate-500">
+                    Incoming & Sent
+                  </span>
+                </div>
               </div>
-            </div>
-            <ArrowRight className="size-4 text-slate-400" />
-          </Link>
+              <ArrowRight className="size-4 text-slate-400" />
+            </Link>
+          )}
 
-          <Link
-            href="/orders"
-            className="card flex items-center justify-between p-4 transition hover:-translate-y-0.5"
-          >
-            <div className="flex items-center gap-3">
-              <ReceiptText className="size-5 text-emerald-700" />
-              <div>
-                <b className="block text-sm">Order History</b>
-                <span className="text-xs text-slate-500">Receipts & Tracking</span>
+          {buyerEnabled && (
+            <Link
+              href="/orders"
+              className="card flex items-center justify-between p-4 transition hover:-translate-y-0.5"
+            >
+              <div className="flex items-center gap-3">
+                <ReceiptText className="size-5 text-emerald-700" />
+                <div>
+                  <b className="block text-sm">Order History</b>
+                  <span className="text-xs text-slate-500">
+                    Receipts & Tracking
+                  </span>
+                </div>
               </div>
-            </div>
-            <ArrowRight className="size-4 text-slate-400" />
-          </Link>
+              <ArrowRight className="size-4 text-slate-400" />
+            </Link>
+          )}
         </div>
 
         {isAdmin && (

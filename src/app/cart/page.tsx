@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { CheckoutView } from "@/components/checkout-view";
+import { canBuy } from "@/lib/access";
 
 export default async function Cart({
   searchParams,
@@ -21,9 +22,10 @@ export default async function Cart({
     }),
     prisma.user.findUnique({
       where: { id: s.user.id },
-      select: { id: true, name: true, email: true, college: true },
+      select: { id: true, name: true, email: true, college: true, role: true },
     }),
   ]);
+  if (!canBuy(user?.role)) redirect("/workspace?access=buyer");
 
   const cleanItems = items.map((x) => ({
     id: x.id,
@@ -65,14 +67,14 @@ export default async function Cart({
 
       {q.error && (
         <div className="mb-6 rounded-lg border-2 border-red-500 bg-red-50 p-3.5 text-xs font-bold text-red-900">
-          ⚠️ Please check your shipping address: it must be at least 5 characters long.
+          ⚠️{" "}
+          {q.error === "own-listing"
+            ? "A seller cannot order their own listing. Remove that item to continue."
+            : "Please check your shipping address: it must be at least 5 characters long."}
         </div>
       )}
 
-      <CheckoutView
-        items={cleanItems}
-        user={cleanUser}
-      />
+      <CheckoutView items={cleanItems} user={cleanUser} />
     </main>
   );
 }

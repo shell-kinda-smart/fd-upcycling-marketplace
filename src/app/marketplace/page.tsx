@@ -80,11 +80,11 @@ export default async function Marketplace({ searchParams }: MarketplaceProps) {
 
   const hasActiveFilters = Boolean(
     q.q ||
-      (q.category && q.category !== "All") ||
-      q.material ||
-      q.price ||
-      q.trade ||
-      (q.sort && q.sort !== "featured"),
+    (q.category && q.category !== "All") ||
+    q.material ||
+    q.price ||
+    q.trade ||
+    (q.sort && q.sort !== "featured"),
   );
 
   return (
@@ -100,7 +100,8 @@ export default async function Marketplace({ searchParams }: MarketplaceProps) {
             Find your next statement piece.
           </h1>
           <p className="mt-1.5 text-xs sm:text-sm text-slate-600">
-            Discover verified upcycled fashion, circular streetwear, and rescued materials transformed by independent creators.
+            Discover verified upcycled fashion, circular streetwear, and rescued
+            materials transformed by independent creators.
           </p>
         </div>
 
@@ -296,14 +297,19 @@ export default async function Marketplace({ searchParams }: MarketplaceProps) {
               {/* Product Info */}
               <div className="p-3.5 sm:p-4">
                 <div className="flex items-center justify-between text-[11px] text-slate-500">
-                  <span className="font-semibold text-[#cf5036]">{p.category}</span>
+                  <span className="font-semibold text-[#cf5036]">
+                    {p.category}
+                  </span>
                   <span className="truncate max-w-[100px] text-slate-400">
                     {p.seller?.name || "Studio"}
                   </span>
                 </div>
 
                 <h2 className="mt-1 font-bold text-xs sm:text-sm text-slate-900 line-clamp-1">
-                  <Link href={`/product/${p.id}`} className="hover:text-[#cf5036] transition">
+                  <Link
+                    href={`/product/${p.id}`}
+                    className="hover:text-[#cf5036] transition"
+                  >
                     {p.name}
                   </Link>
                 </h2>
@@ -358,11 +364,17 @@ export default async function Marketplace({ searchParams }: MarketplaceProps) {
       {!products.length && (
         <div className="mt-14 card p-10 grid place-items-center text-center text-slate-500 max-w-md mx-auto">
           <PackageSearch className="size-10 text-[#cf5036]" />
-          <p className="mt-3 font-bold text-base text-slate-800">No matching products found.</p>
-          <p className="mt-1 text-xs">
-            Try adjusting your search keywords, clear material filters, or pick another category.
+          <p className="mt-3 font-bold text-base text-slate-800">
+            No matching products found.
           </p>
-          <Link href="/marketplace" className="btn btn-primary mt-4 text-xs font-bold">
+          <p className="mt-1 text-xs">
+            Try adjusting your search keywords, clear material filters, or pick
+            another category.
+          </p>
+          <Link
+            href="/marketplace"
+            className="btn btn-primary mt-4 text-xs font-bold"
+          >
             Reset All Filters
           </Link>
         </div>

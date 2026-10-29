@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { OrderStatus, Role } from "@prisma/client";
 import { auth, signIn, signOut } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { canBuy, canSell } from "@/lib/access";
 import {
   checkoutSchema,
   productSchema,
@@ -17,6 +18,28 @@ async function userId() {
   const s = await auth();
   if (!s?.user?.id) redirect("/signin");
   return s.user.id;
+}
+
+async function currentAccount() {
+  const id = await userId();
+  const user = await prisma.user.findUnique({
+    where: { id },
+    select: { id: true, role: true },
+  });
+  if (!user) redirect("/signin");
+  return user;
+}
+
+async function requireBuyer() {
+  const user = await currentAccount();
+  if (!canBuy(user.role)) redirect("/workspace?access=buyer");
+  return user;
+}
+
+async function requireSeller() {
+  const user = await currentAccount();
+  if (!canSell(user.role)) redirect("/workspace?access=seller");
+  return user;
 }
 export async function registerAction(fd: FormData) {
   const p = registerSchema.safeParse(Object.fromEntries(fd));
@@ -53,7 +76,7 @@ export async function logoutAction() {
   await signOut({ redirectTo: "/" });
 }
 export async function createProduct(fd: FormData) {
-  const id = await userId();
+  const { id } = await requireSeller();
   const p = productSchema.safeParse(Object.fromEntries(fd));
   if (!p.success) redirect("/sell?error=invalid");
   const imageUrl = p.data.imageUrl?.trim() || null;
@@ -70,10 +93,11 @@ export async function createProduct(fd: FormData) {
       imageUrl,
     },
   });
+  revalidatePath("/workspace");
   redirect("/listings");
 }
 export async function updateProductStatus(fd: FormData) {
-  const id = await userId(),
+  const { id } = await requireSeller(),
     status = String(fd.get("status"));
   if (!["ACTIVE", "SOLD", "ARCHIVED"].includes(status)) return;
   await prisma.product.updateMany({
@@ -82,16 +106,28 @@ export async function updateProductStatus(fd: FormData) {
   });
   revalidatePath("/listings");
   revalidatePath("/marketplace");
+  revalidatePath("/workspace");
 }
 export async function addToCartDirect(productId: string) {
   const s = await auth();
   if (!s?.user?.id) {
     return { success: false, requireAuth: true };
   }
+  const user = await prisma.user.findUnique({
+    where: { id: s.user.id },
+    select: { role: true },
+  });
+  if (!canBuy(user?.role))
+    return { success: false, error: "Switch to a buyer account to add items." };
   const product = await prisma.product.findFirst({
     where: { id: productId, status: "ACTIVE" },
   });
   if (!product) return { success: false, error: "Product not available" };
+  if (product.sellerId === s.user.id)
+    return {
+      success: false,
+      error: "You cannot add your own listing to your bag.",
+    };
   await prisma.cartItem.upsert({
     where: { userId_productId: { userId: s.user.id, productId } },
     update: { quantity: { increment: 1 } },
@@ -100,16 +136,17 @@ export async function addToCartDirect(productId: string) {
   revalidatePath("/", "layout");
   revalidatePath("/marketplace");
   revalidatePath("/cart");
+  revalidatePath("/workspace");
   return { success: true };
 }
 
 export async function addToCart(fd: FormData) {
-  const id = await userId(),
+  const { id } = await requireBuyer(),
     productId = String(fd.get("productId"));
   const product = await prisma.product.findFirst({
     where: { id: productId, status: "ACTIVE" },
   });
-  if (!product) return;
+  if (!product || product.sellerId === id) return;
   await prisma.cartItem.upsert({
     where: { userId_productId: { userId: id, productId } },
     update: { quantity: { increment: 1 } },
@@ -118,15 +155,16 @@ export async function addToCart(fd: FormData) {
   revalidatePath("/", "layout");
   revalidatePath("/marketplace");
   revalidatePath("/cart");
+  revalidatePath("/workspace");
 }
 
 export async function buyNow(fd: FormData) {
-  const id = await userId(),
+  const { id } = await requireBuyer(),
     productId = String(fd.get("productId"));
   const product = await prisma.product.findFirst({
     where: { id: productId, status: "ACTIVE" },
   });
-  if (product) {
+  if (product && product.sellerId !== id) {
     await prisma.cartItem.upsert({
       where: { userId_productId: { userId: id, productId } },
       update: { quantity: { increment: 1 } },
@@ -138,7 +176,7 @@ export async function buyNow(fd: FormData) {
   redirect("/cart");
 }
 export async function removeCartItem(fd: FormData) {
-  const id = await userId();
+  const { id } = await requireBuyer();
   await prisma.cartItem.deleteMany({
     where: { id: String(fd.get("id")), userId: id },
   });
@@ -147,7 +185,7 @@ export async function removeCartItem(fd: FormData) {
 }
 
 export async function updateCartQuantity(fd: FormData) {
-  const id = await userId();
+  const { id } = await requireBuyer();
   const cartItemId = String(fd.get("id"));
   const delta = parseInt(String(fd.get("delta") || "0"), 10);
   if (!cartItemId || isNaN(delta) || delta === 0) return;
@@ -178,7 +216,7 @@ async function requireAdmin() {
 }
 
 export async function checkout(fd: FormData) {
-  const id = await userId(),
+  const { id } = await requireBuyer(),
     p = checkoutSchema.safeParse(Object.fromEntries(fd));
   if (!p.success) redirect("/cart?error=invalid");
   const cart = await prisma.cartItem.findMany({
@@ -186,6 +224,8 @@ export async function checkout(fd: FormData) {
     include: { product: true },
   });
   if (!cart.length) redirect("/cart");
+  if (cart.some((item) => item.product.sellerId === id))
+    redirect("/cart?error=own-listing");
   const subtotal = cart.reduce(
     (s, x) => s + x.product.price.toNumber() * x.quantity,
     0,
@@ -198,19 +238,19 @@ export async function checkout(fd: FormData) {
   const isRazorpay =
     p.data.paymentMethod === "RAZORPAY" ||
     p.data.paymentMethod === "RAZORPAY_DEMO";
-  const paymentStatus =
-    isRazorpay
-      ? "PAID"
-      : p.data.paymentMethod === "COD"
-        ? "PENDING_COD"
-        : "PAID";
-  const randomSuffix = Math.random().toString(36).substring(2, 12).toUpperCase();
+  const paymentStatus = isRazorpay
+    ? "PAID"
+    : p.data.paymentMethod === "COD"
+      ? "PENDING_COD"
+      : "PAID";
+  const randomSuffix = Math.random()
+    .toString(36)
+    .substring(2, 12)
+    .toUpperCase();
   const razorpayPaymentId =
-    p.data.razorpayPaymentId ||
-    (isRazorpay ? `pay_${randomSuffix}` : null);
+    p.data.razorpayPaymentId || (isRazorpay ? `pay_${randomSuffix}` : null);
   const razorpayOrderId =
-    p.data.razorpayOrderId ||
-    (isRazorpay ? `order_${randomSuffix}` : null);
+    p.data.razorpayOrderId || (isRazorpay ? `order_${randomSuffix}` : null);
 
   await prisma.$transaction(async (tx) => {
     await tx.order.create({
@@ -245,29 +285,31 @@ export async function checkout(fd: FormData) {
   revalidatePath("/marketplace");
   revalidatePath("/orders");
   revalidatePath("/cart");
+  revalidatePath("/workspace");
   redirect(
     `/orders?success=1${razorpayPaymentId ? `&pay_id=${razorpayPaymentId}` : ""}`,
   );
 }
 
 export async function proposeTrade(fd: FormData) {
-  const id = await userId(),
+  const { id } = await requireBuyer(),
     offer = String(fd.get("offerText") || "").trim(),
     productId = String(fd.get("productId"));
   if (offer.length < 5) return;
   const product = await prisma.product.findFirst({
     where: { id: productId, tradeEnabled: true, status: "ACTIVE" },
   });
-  if (product)
+  if (product && product.sellerId !== id)
     await prisma.tradeProposal.create({
       data: { requesterId: id, productId, offerText: offer },
     });
   revalidatePath("/marketplace");
   revalidatePath("/trades");
+  revalidatePath("/workspace");
 }
 
 export async function acceptTrade(fd: FormData) {
-  const id = await userId();
+  const { id } = await requireSeller();
   const tradeId = String(fd.get("tradeId"));
   const trade = await prisma.tradeProposal.findUnique({
     where: { id: tradeId },
@@ -295,10 +337,11 @@ export async function acceptTrade(fd: FormData) {
   revalidatePath("/trades");
   revalidatePath("/listings");
   revalidatePath("/marketplace");
+  revalidatePath("/workspace");
 }
 
 export async function rejectTrade(fd: FormData) {
-  const id = await userId();
+  const { id } = await requireSeller();
   const tradeId = String(fd.get("tradeId"));
   const trade = await prisma.tradeProposal.findUnique({
     where: { id: tradeId },
@@ -310,6 +353,7 @@ export async function rejectTrade(fd: FormData) {
     data: { status: "REJECTED" },
   });
   revalidatePath("/trades");
+  revalidatePath("/workspace");
 }
 
 export async function adminUpdateProductStatus(fd: FormData) {
@@ -370,5 +414,6 @@ export async function updateProfile(fd: FormData) {
   if (!p.success) redirect("/profile?error=invalid");
   await prisma.user.update({ where: { id }, data: p.data });
   revalidatePath("/profile");
+  revalidatePath("/workspace");
   redirect("/profile?saved=1");
 }

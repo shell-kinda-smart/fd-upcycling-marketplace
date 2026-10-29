@@ -25,7 +25,8 @@ const products: SeedProduct[] = [
     price: 899,
     category: "Bags",
     material: "Discarded denim jeans",
-    story: "Old jeans were cleaned, cut and reinforced into a durable everyday tote.",
+    story:
+      "Old jeans were cleaned, cut and reinforced into a durable everyday tote.",
     symbol: "👜",
     tradeEnabled: true,
     seed: "rethread-denim-revival-tote",
@@ -35,7 +36,8 @@ const products: SeedProduct[] = [
     price: 549,
     category: "Bags",
     material: "Retired vinyl event banner",
-    story: "A weatherproof college banner gets a second life as a compact utility pouch.",
+    story:
+      "A weatherproof college banner gets a second life as a compact utility pouch.",
     symbol: "👜",
     tradeEnabled: true,
     seed: "rethread-banner-utility-pouch",
@@ -45,7 +47,8 @@ const products: SeedProduct[] = [
     price: 1799,
     category: "Bags",
     material: "Upcycled sailcloth from decommissioned boats",
-    story: "Heavy-duty sail panels are stitched into a weekend duffle that ages like leather.",
+    story:
+      "Heavy-duty sail panels are stitched into a weekend duffle that ages like leather.",
     symbol: "👜",
     tradeEnabled: false,
     seed: "rethread-sailcloth-weekender",
@@ -55,7 +58,8 @@ const products: SeedProduct[] = [
     price: 1299,
     category: "Bags",
     material: "Burlap coffee bean sacks",
-    story: "Grain sacks from a local roaster are reinforced with cotton webbing into a sturdy daypack.",
+    story:
+      "Grain sacks from a local roaster are reinforced with cotton webbing into a sturdy daypack.",
     symbol: "👜",
     tradeEnabled: true,
     seed: "rethread-coffee-sack-backpack",
@@ -65,7 +69,8 @@ const products: SeedProduct[] = [
     price: 749,
     category: "Bags",
     material: "Vintage curtain panels",
-    story: "Faded floral curtains find new purpose as a structured market tote.",
+    story:
+      "Faded floral curtains find new purpose as a structured market tote.",
     symbol: "👜",
     tradeEnabled: false,
     seed: "rethread-curtain-panel-shopper",
@@ -75,7 +80,8 @@ const products: SeedProduct[] = [
     price: 1099,
     category: "Bags",
     material: "Salvaged truck tarpaulin",
-    story: "Industrial tarp scraps are heat-sealed into a roll-top sling that shrugs off rain.",
+    story:
+      "Industrial tarp scraps are heat-sealed into a roll-top sling that shrugs off rain.",
     symbol: "👜",
     tradeEnabled: true,
     seed: "rethread-tarp-roll-top-sling",
@@ -85,7 +91,8 @@ const products: SeedProduct[] = [
     price: 1499,
     category: "Bags",
     material: "Mixed denim offcuts",
-    story: "Jeans from three different decades are patchwork-stitched into a one-of-one holdall.",
+    story:
+      "Jeans from three different decades are patchwork-stitched into a one-of-one holdall.",
     symbol: "👜",
     tradeEnabled: true,
     seed: "rethread-denim-patchwork-holdall",
@@ -105,7 +112,8 @@ const products: SeedProduct[] = [
     price: 499,
     category: "Bags",
     material: "Salvaged car seatbelt webbing",
-    story: "Cut car seatbelts are woven into a slim belt-bag with industrial hardware.",
+    story:
+      "Cut car seatbelts are woven into a slim belt-bag with industrial hardware.",
     symbol: "👜",
     tradeEnabled: true,
     seed: "rethread-seatbelt-belt-bag",
@@ -115,7 +123,8 @@ const products: SeedProduct[] = [
     price: 649,
     category: "Bags",
     material: "Vintage linen tea towels",
-    story: "Faded kitchen linens are overdyed and stitched into a soft everyday tote.",
+    story:
+      "Faded kitchen linens are overdyed and stitched into a soft everyday tote.",
     symbol: "👜",
     tradeEnabled: false,
     seed: "rethread-linen-tea-towel-tote",
@@ -125,7 +134,8 @@ const products: SeedProduct[] = [
     price: 1899,
     category: "Bags",
     material: "Reclaimed leather scraps",
-    story: "Offcuts from a furniture studio are bonded into a slim document portfolio.",
+    story:
+      "Offcuts from a furniture studio are bonded into a slim document portfolio.",
     symbol: "👜",
     tradeEnabled: false,
     seed: "rethread-recycled-leather-portfolio",
@@ -135,7 +145,8 @@ const products: SeedProduct[] = [
     price: 2199,
     category: "Bags",
     material: "Decommissioned fire hose",
-    story: "Retired fire hoses are pressure-washed and re-cut into a heavy-duty duffle.",
+    story:
+      "Retired fire hoses are pressure-washed and re-cut into a heavy-duty duffle.",
     symbol: "👜",
     tradeEnabled: true,
     seed: "rethread-fire-hose-duffel",
@@ -145,7 +156,8 @@ const products: SeedProduct[] = [
     price: 349,
     category: "Bags",
     material: "Coffee burlap with cotton lining",
-    story: "Grain sacks are lined with reclaimed cotton to make a sturdy, washable lunch sack.",
+    story:
+      "Grain sacks are lined with reclaimed cotton to make a sturdy, washable lunch sack.",
     symbol: "👜",
     tradeEnabled: false,
     seed: "rethread-burlap-lunch-sack",
@@ -157,7 +169,8 @@ const products: SeedProduct[] = [
     price: 649,
     category: "Clothing",
     material: "Tailoring fabric scraps",
-    story: "Small cotton remnants are joined into a reversible, one-of-one bucket hat.",
+    story:
+      "Small cotton remnants are joined into a reversible, one-of-one bucket hat.",
     symbol: "👕",
     tradeEnabled: true,
     seed: "rethread-patchwork-bucket-hat",
@@ -167,7 +180,8 @@ const products: SeedProduct[] = [
     price: 1599,
     category: "Clothing",
     material: "Vintage sari silk",
-    story: "Pre-loved sari silk is hand-quilted into a reversible statement vest.",
+    story:
+      "Pre-loved sari silk is hand-quilted into a reversible statement vest.",
     symbol: "👕",
     tradeEnabled: true,
     seed: "rethread-sari-silk-quilted-vest",
@@ -177,7 +191,8 @@ const products: SeedProduct[] = [
     price: 799,
     category: "Clothing",
     material: "Upcycled cotton tees",
-    story: "Stained or torn tees are deconstructed and remixed into a relaxed raglan tee.",
+    story:
+      "Stained or torn tees are deconstructed and remixed into a relaxed raglan tee.",
     symbol: "👕",
     tradeEnabled: false,
     seed: "rethread-tee-remnant-raglan",
@@ -187,7 +202,8 @@ const products: SeedProduct[] = [
     price: 1899,
     category: "Clothing",
     material: "Two pairs of old jeans",
-    story: "Two pairs of worn jeans are spliced together to make a fitted cropped jacket.",
+    story:
+      "Two pairs of worn jeans are spliced together to make a fitted cropped jacket.",
     symbol: "👕",
     tradeEnabled: true,
     seed: "rethread-denim-cutoff-jacket",
@@ -197,7 +213,8 @@ const products: SeedProduct[] = [
     price: 1199,
     category: "Clothing",
     material: "Vintage linen curtains",
-    story: "Sun-bleached linen curtains are unpicked and tailored into wide-leg trousers.",
+    story:
+      "Sun-bleached linen curtains are unpicked and tailored into wide-leg trousers.",
     symbol: "👕",
     tradeEnabled: false,
     seed: "rethread-linen-curtain-trousers",
@@ -207,7 +224,8 @@ const products: SeedProduct[] = [
     price: 1399,
     category: "Clothing",
     material: "Layered cotton sari scraps",
-    story: "Layered sari remnants are hand-stitched in running kantha stitch into a soft wrap.",
+    story:
+      "Layered sari remnants are hand-stitched in running kantha stitch into a soft wrap.",
     symbol: "👕",
     tradeEnabled: true,
     seed: "rethread-kantha-stitch-wrap",
@@ -227,7 +245,8 @@ const products: SeedProduct[] = [
     price: 449,
     category: "Clothing",
     material: "Shrunken wool sweaters",
-    story: "Sweaters shrunk beyond wear are felted and refashioned into a dense beanie.",
+    story:
+      "Sweaters shrunk beyond wear are felted and refashioned into a dense beanie.",
     symbol: "👕",
     tradeEnabled: false,
     seed: "rethread-sweater-felted-beanie",
@@ -237,7 +256,8 @@ const products: SeedProduct[] = [
     price: 699,
     category: "Clothing",
     material: "Event banner offcuts",
-    story: "Retired event banners are cut and bias-bound into a rugged workshop apron.",
+    story:
+      "Retired event banners are cut and bias-bound into a rugged workshop apron.",
     symbol: "👕",
     tradeEnabled: false,
     seed: "rethread-banner-tarp-apron",
@@ -247,7 +267,8 @@ const products: SeedProduct[] = [
     price: 549,
     category: "Clothing",
     material: "Cotton shirting scraps",
-    story: "Tiny shirting scraps are hex-pieced into a playful cropped camisole.",
+    story:
+      "Tiny shirting scraps are hex-pieced into a playful cropped camisole.",
     symbol: "👕",
     tradeEnabled: true,
     seed: "rethread-patchwork-crop-top",
@@ -257,7 +278,8 @@ const products: SeedProduct[] = [
     price: 1299,
     category: "Clothing",
     material: "Mixed old jeans",
-    story: "Three pairs of jeans are cut down and re-stitched into a mid-length A-line skirt.",
+    story:
+      "Three pairs of jeans are cut down and re-stitched into a mid-length A-line skirt.",
     symbol: "👕",
     tradeEnabled: true,
     seed: "rethread-denim-aline-skirt",
@@ -267,7 +289,8 @@ const products: SeedProduct[] = [
     price: 1699,
     category: "Clothing",
     material: "Vintage fleece + sari lining",
-    story: "A faded fleece bomber is re-lined with sari silk for a warm, eclectic statement piece.",
+    story:
+      "A faded fleece bomber is re-lined with sari silk for a warm, eclectic statement piece.",
     symbol: "👕",
     tradeEnabled: false,
     seed: "rethread-sherpa-reworked-bomber",
@@ -277,7 +300,8 @@ const products: SeedProduct[] = [
     price: 1099,
     category: "Clothing",
     material: "Designer linen sample cuts",
-    story: "Discontinued designer linen samples are tiered into a breezy smock dress.",
+    story:
+      "Discontinued designer linen samples are tiered into a breezy smock dress.",
     symbol: "👕",
     tradeEnabled: true,
     seed: "rethread-linen-sample-smock",
@@ -289,7 +313,8 @@ const products: SeedProduct[] = [
     price: 399,
     category: "Accessories",
     material: "Non-working circuit board",
-    story: "A damaged PCB is safely sealed and reshaped as a geometric pendant.",
+    story:
+      "A damaged PCB is safely sealed and reshaped as a geometric pendant.",
     symbol: "◈",
     tradeEnabled: true,
     seed: "rethread-circuit-board-pendant",
@@ -299,7 +324,8 @@ const products: SeedProduct[] = [
     price: 549,
     category: "Accessories",
     material: "Heat-moulded vinyl record",
-    story: "Cracked vinyl records are gently warmed and reshaped into wearable cuffs.",
+    story:
+      "Cracked vinyl records are gently warmed and reshaped into wearable cuffs.",
     symbol: "◈",
     tradeEnabled: true,
     seed: "rethread-vinyl-record-cuff",
@@ -309,7 +335,8 @@ const products: SeedProduct[] = [
     price: 249,
     category: "Accessories",
     material: "Metal bottle caps + resin",
-    story: "Collected bottle caps are sealed in eco resin into playful stud earrings.",
+    story:
+      "Collected bottle caps are sealed in eco resin into playful stud earrings.",
     symbol: "◈",
     tradeEnabled: false,
     seed: "rethread-bottle-cap-studs",
@@ -319,7 +346,8 @@ const products: SeedProduct[] = [
     price: 699,
     category: "Accessories",
     material: "Inner-tube rubber",
-    story: "Punctured bike inner tubes are flattened and stitched into a vegan leather-look belt.",
+    story:
+      "Punctured bike inner tubes are flattened and stitched into a vegan leather-look belt.",
     symbol: "◈",
     tradeEnabled: true,
     seed: "rethread-tire-tube-belt",
@@ -329,7 +357,8 @@ const products: SeedProduct[] = [
     price: 449,
     category: "Accessories",
     material: "Salvaged spectacle frames",
-    story: "Broken spectacles are de-lensed and pinned into quirky statement brooches.",
+    story:
+      "Broken spectacles are de-lensed and pinned into quirky statement brooches.",
     symbol: "◈",
     tradeEnabled: false,
     seed: "rethread-spectacle-frame-brooch",
@@ -339,7 +368,8 @@ const products: SeedProduct[] = [
     price: 299,
     category: "Accessories",
     material: "Salvaged keyboard keys",
-    story: "Keys from decommissioned keyboards are strung into a typographer's choker.",
+    story:
+      "Keys from decommissioned keyboards are strung into a typographer's choker.",
     symbol: "◈",
     tradeEnabled: true,
     seed: "rethread-keyboard-key-choker",
@@ -349,7 +379,8 @@ const products: SeedProduct[] = [
     price: 199,
     category: "Accessories",
     material: "Used tea-bag paper",
-    story: "Steeped tea-bag papers are layered and sealed into delicate floral brooches.",
+    story:
+      "Steeped tea-bag papers are layered and sealed into delicate floral brooches.",
     symbol: "◈",
     tradeEnabled: false,
     seed: "rethread-tea-bag-paper-brooch",
@@ -359,7 +390,8 @@ const products: SeedProduct[] = [
     price: 349,
     category: "Accessories",
     material: "Denim offcuts",
-    story: "Twisted and braided denim scraps are sewn into a soft, stretchy headband.",
+    story:
+      "Twisted and braided denim scraps are sewn into a soft, stretchy headband.",
     symbol: "◈",
     tradeEnabled: false,
     seed: "rethread-denim-scrap-headband",
@@ -369,7 +401,8 @@ const products: SeedProduct[] = [
     price: 599,
     category: "Accessories",
     material: "Vintage cassette tapes",
-    story: "Broken cassettes are de-cased and re-stitched into a slim two-card wallet.",
+    story:
+      "Broken cassettes are de-cased and re-stitched into a slim two-card wallet.",
     symbol: "◈",
     tradeEnabled: true,
     seed: "rethread-cassette-tape-wallet",
@@ -379,7 +412,8 @@ const products: SeedProduct[] = [
     price: 249,
     category: "Accessories",
     material: "Vinyl event banner offcuts",
-    story: "Bright banner scraps are cut, hemmed, and folded into bold pocket squares.",
+    story:
+      "Bright banner scraps are cut, hemmed, and folded into bold pocket squares.",
     symbol: "◈",
     tradeEnabled: false,
     seed: "rethread-banner-pocket-square",
@@ -389,7 +423,8 @@ const products: SeedProduct[] = [
     price: 299,
     category: "Accessories",
     material: "Shattered CDs",
-    story: "Scratched CDs are shattered into mosaic tiles and set into iridescent hairpins.",
+    story:
+      "Scratched CDs are shattered into mosaic tiles and set into iridescent hairpins.",
     symbol: "◈",
     tradeEnabled: false,
     seed: "rethread-cd-mosaic-hairpins",
@@ -399,7 +434,8 @@ const products: SeedProduct[] = [
     price: 449,
     category: "Accessories",
     material: "Sailcloth offcuts + steel hardware",
-    story: "Stiff sailcloth scraps become a rugged, water-resistant watch strap.",
+    story:
+      "Stiff sailcloth scraps become a rugged, water-resistant watch strap.",
     symbol: "◈",
     tradeEnabled: false,
     seed: "rethread-sailcloth-watch-strap",
@@ -411,7 +447,8 @@ const products: SeedProduct[] = [
     price: 1299,
     category: "Home",
     material: "Rolled newspaper and reclaimed wood",
-    story: "Waste newspaper tubes form the shade and an offcut becomes the weighted base.",
+    story:
+      "Waste newspaper tubes form the shade and an offcut becomes the weighted base.",
     symbol: "🌱",
     tradeEnabled: false,
     seed: "rethread-newspaper-desk-lamp",
@@ -421,7 +458,8 @@ const products: SeedProduct[] = [
     price: 349,
     category: "Home",
     material: "Metal bottle caps and cork",
-    story: "Collected bottle caps sit inside reclaimed cork rings to protect table surfaces.",
+    story:
+      "Collected bottle caps sit inside reclaimed cork rings to protect table surfaces.",
     symbol: "🌱",
     tradeEnabled: false,
     seed: "rethread-bottle-cap-coasters",
@@ -431,7 +469,8 @@ const products: SeedProduct[] = [
     price: 299,
     category: "Home",
     material: "Collected wine corks",
-    story: "Restaurant wine corks are sliced and glued into a hexagonal heat-proof trivet.",
+    story:
+      "Restaurant wine corks are sliced and glued into a hexagonal heat-proof trivet.",
     symbol: "🌱",
     tradeEnabled: false,
     seed: "rethread-wine-cork-trivet",
@@ -441,7 +480,8 @@ const products: SeedProduct[] = [
     price: 1799,
     category: "Home",
     material: "Heat-treated pallet wood",
-    story: "Heat-treated pallet planks are sanded and joined into a sturdy bedside stool.",
+    story:
+      "Heat-treated pallet planks are sanded and joined into a sturdy bedside stool.",
     symbol: "🌱",
     tradeEnabled: true,
     seed: "rethread-pallet-wood-stool",
@@ -451,7 +491,8 @@ const products: SeedProduct[] = [
     price: 1499,
     category: "Home",
     material: "Vintage mason jars + brass",
-    story: "Old canning jars are wired into a cluster pendant with brushed brass fittings.",
+    story:
+      "Old canning jars are wired into a cluster pendant with brushed brass fittings.",
     symbol: "🌱",
     tradeEnabled: false,
     seed: "rethread-mason-jar-pendant-light",
@@ -461,7 +502,8 @@ const products: SeedProduct[] = [
     price: 549,
     category: "Home",
     material: "Salvaged steel sheet + barn wood",
-    story: "A sheet of salvaged steel is mounted on barn offcuts to make a magnetic photo rail.",
+    story:
+      "A sheet of salvaged steel is mounted on barn offcuts to make a magnetic photo rail.",
     symbol: "🌱",
     tradeEnabled: false,
     seed: "rethread-magnet-board-photo-frame",
@@ -471,7 +513,8 @@ const products: SeedProduct[] = [
     price: 449,
     category: "Home",
     material: "Punched tin cans",
-    story: "Cleaned food cans are nail-punched into stencilled tealight lanterns.",
+    story:
+      "Cleaned food cans are nail-punched into stencilled tealight lanterns.",
     symbol: "🌱",
     tradeEnabled: true,
     seed: "rethread-tin-can-lantern",
@@ -481,7 +524,8 @@ const products: SeedProduct[] = [
     price: 599,
     category: "Home",
     material: "Salvaged oak joists + brass",
-    story: "Offcuts from renovation are planed and joined with brass into L-shaped bookends.",
+    story:
+      "Offcuts from renovation are planed and joined with brass into L-shaped bookends.",
     symbol: "🌱",
     tradeEnabled: false,
     seed: "rethread-reclaimed-bookend-pair",
@@ -491,7 +535,8 @@ const products: SeedProduct[] = [
     price: 399,
     category: "Home",
     material: "Coffee burlap + cotton lining",
-    story: "Grain sacks are sized and lined to slip over plain terracotta pots.",
+    story:
+      "Grain sacks are sized and lined to slip over plain terracotta pots.",
     symbol: "🌱",
     tradeEnabled: false,
     seed: "rethread-burlap-planter-cover",
@@ -501,7 +546,8 @@ const products: SeedProduct[] = [
     price: 999,
     category: "Home",
     material: "Reclaimed window shutters",
-    story: "Old louvered shutters are cut down and fitted with a frameless wall mirror.",
+    story:
+      "Old louvered shutters are cut down and fitted with a frameless wall mirror.",
     symbol: "🌱",
     tradeEnabled: true,
     seed: "rethread-shutter-window-mirror",
@@ -511,7 +557,8 @@ const products: SeedProduct[] = [
     price: 449,
     category: "Home",
     material: "Wine cork + driftwood",
-    story: "Cork slices are inlaid into driftwood rounds to make a set of four coasters.",
+    story:
+      "Cork slices are inlaid into driftwood rounds to make a set of four coasters.",
     symbol: "🌱",
     tradeEnabled: false,
     seed: "rethread-cork-driftwood-coaster-set",
@@ -521,7 +568,8 @@ const products: SeedProduct[] = [
     price: 899,
     category: "Home",
     material: "Event banner + cotton scrim",
-    story: "Retired outdoor banners are backed with cotton and bound into a wipe-clean picnic mat.",
+    story:
+      "Retired outdoor banners are backed with cotton and bound into a wipe-clean picnic mat.",
     symbol: "🌱",
     tradeEnabled: true,
     seed: "rethread-banner-tarp-picnic-mat",
@@ -561,8 +609,10 @@ function fetchToFile(url: string, maxRedirects = 5): Promise<Buffer> {
         maxRedirects > 0
       ) {
         res.resume();
-        fetchToFile(res.headers.location, maxRedirects - 1)
-          .then(resolve, reject);
+        fetchToFile(res.headers.location, maxRedirects - 1).then(
+          resolve,
+          reject,
+        );
         return;
       }
       if (res.statusCode !== 200) {
@@ -580,10 +630,7 @@ function fetchToFile(url: string, maxRedirects = 5): Promise<Buffer> {
   });
 }
 
-function assignPhotos(
-  products: SeedProduct[],
-  cat: Catalogue,
-): PhotoJob[] {
+function assignPhotos(products: SeedProduct[], cat: Catalogue): PhotoJob[] {
   const buckets: Record<string, number[]> = {
     Bags: cat.Bags.map((p) => p.id),
     Clothing: cat.Clothing.map((p) => p.id),

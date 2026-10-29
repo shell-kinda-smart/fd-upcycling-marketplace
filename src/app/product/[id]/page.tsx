@@ -46,6 +46,7 @@ export default async function ProductDetailPage({
   });
 
   if (!product) notFound();
+  const isOwnListing = session?.user?.id === product.sellerId;
 
   // Find 3 related items from same category
   const relatedProducts = await prisma.product.findMany({
@@ -95,7 +96,11 @@ export default async function ProductDetailPage({
             <span className="rounded bg-[#29243d]/85 px-3 py-1 text-xs font-bold text-white backdrop-blur-xs">
               {product.category}
             </span>
-            <WishlistButton productId={product.id} productName={product.name} size="md" />
+            <WishlistButton
+              productId={product.id}
+              productName={product.name}
+              size="md"
+            />
           </div>
         </div>
 
@@ -151,24 +156,30 @@ export default async function ProductDetailPage({
               <div className="flex flex-col items-center text-center">
                 <Recycle className="size-4 text-emerald-700" />
                 <span className="mt-1 text-xs font-black">0.8 kg</span>
-                <span className="text-[10px] text-emerald-800/80">Waste Saved</span>
+                <span className="text-[10px] text-emerald-800/80">
+                  Waste Saved
+                </span>
               </div>
               <div className="flex flex-col items-center border-x border-emerald-200 text-center">
                 <Droplets className="size-4 text-emerald-700" />
                 <span className="mt-1 text-xs font-black">~1,850 L</span>
-                <span className="text-[10px] text-emerald-800/80">Water Saved</span>
+                <span className="text-[10px] text-emerald-800/80">
+                  Water Saved
+                </span>
               </div>
               <div className="flex flex-col items-center text-center">
                 <Leaf className="size-4 text-emerald-700" />
                 <span className="mt-1 text-xs font-black">4.2 kg</span>
-                <span className="text-[10px] text-emerald-800/80">CO2e Diverted</span>
+                <span className="text-[10px] text-emerald-800/80">
+                  CO2e Diverted
+                </span>
               </div>
             </div>
           </div>
 
           {/* Action Area */}
           <div className="mt-8 space-y-4">
-            {session ? (
+            {session && !isOwnListing ? (
               <div className="flex flex-col gap-3 sm:flex-row">
                 <div className="flex-1">
                   <AddToCartButton
@@ -189,26 +200,38 @@ export default async function ProductDetailPage({
                   </button>
                 </form>
               </div>
+            ) : session ? (
+              <div className="rounded-xl border border-[#d8dfd8] bg-[#f4f7f2] p-4 text-sm text-[#355446]">
+                This is your listing. Manage its availability and incoming trade
+                offers from your workspace.
+                <Link href="/workspace" className="ml-2 font-bold underline">
+                  Open workspace
+                </Link>
+              </div>
             ) : (
               <div className="rounded border border-slate-200 bg-white p-4 text-center">
                 <p className="text-sm font-semibold text-slate-700">
                   Sign in to purchase this piece or propose a trade.
                 </p>
-                <Link href="/signin" className="btn btn-primary mt-3 inline-block">
+                <Link
+                  href="/signin"
+                  className="btn btn-primary mt-3 inline-block"
+                >
                   Sign in to Continue
                 </Link>
               </div>
             )}
 
             {/* Trade proposal form */}
-            {session && product.tradeEnabled && (
+            {session && !isOwnListing && product.tradeEnabled && (
               <div className="rounded-xl border-2 border-[#f3c94b] bg-[#fff9ea] p-5">
                 <h3 className="flex items-center gap-2 text-sm font-black text-slate-900">
                   <ArrowRightLeft className="size-4 text-[#cf5036]" /> Propose a
                   Trade Swap
                 </h3>
                 <p className="mt-1 text-xs text-slate-600">
-                  Have an upcycled piece or salvage material? Submit your offer directly to {product.seller?.name || "the maker"}.
+                  Have an upcycled piece or salvage material? Submit your offer
+                  directly to {product.seller?.name || "the maker"}.
                 </p>
                 <form action={proposeTrade} className="mt-3 space-y-2">
                   <input type="hidden" name="productId" value={product.id} />
@@ -228,11 +251,13 @@ export default async function ProductDetailPage({
 
             <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs text-slate-500 pt-2">
               <span className="flex items-center gap-1">
-                <Truck className="size-3.5" /> Campus pickup or doorstep delivery
+                <Truck className="size-3.5" /> Campus pickup or doorstep
+                delivery
               </span>
               <span>·</span>
               <span className="flex items-center gap-1">
-                <ShieldCheck className="size-3.5 text-green-700" /> 256-Bit SSL Encrypted Checkout
+                <ShieldCheck className="size-3.5 text-green-700" /> 256-Bit SSL
+                Encrypted Checkout
               </span>
             </div>
           </div>
@@ -259,14 +284,21 @@ export default async function ProductDetailPage({
 
             <div className="mt-4 grid grid-cols-2 gap-3 border-y border-slate-200/80 py-3 text-xs">
               <div>
-                <span className="text-slate-400 block text-[10px] uppercase font-bold">Community Rating</span>
+                <span className="text-slate-400 block text-[10px] uppercase font-bold">
+                  Community Rating
+                </span>
                 <span className="font-bold text-slate-900 flex items-center gap-1 mt-0.5">
-                  <Star className="size-3.5 fill-amber-400 text-amber-400" /> 4.9 / 5.0
+                  <Star className="size-3.5 fill-amber-400 text-amber-400" />{" "}
+                  4.9 / 5.0
                 </span>
               </div>
               <div>
-                <span className="text-slate-400 block text-[10px] uppercase font-bold">Pieces Recirculated</span>
-                <span className="font-bold text-slate-900 block mt-0.5">28 Crafted</span>
+                <span className="text-slate-400 block text-[10px] uppercase font-bold">
+                  Pieces Recirculated
+                </span>
+                <span className="font-bold text-slate-900 block mt-0.5">
+                  28 Crafted
+                </span>
               </div>
             </div>
 
@@ -315,7 +347,10 @@ export default async function ProductDetailPage({
                     "Paid via UPI with instant confirmation, and the parcel arrived in 3 days. Clean packaging and exact color match.",
                 },
               ].map((rev) => (
-                <div key={rev.author} className="rounded-lg border border-slate-200 bg-white p-4 shadow-2xs">
+                <div
+                  key={rev.author}
+                  className="rounded-lg border border-slate-200 bg-white p-4 shadow-2xs"
+                >
                   <div className="flex items-center justify-between text-xs">
                     <div className="flex items-center gap-2">
                       <b className="font-bold text-slate-900">{rev.author}</b>
@@ -323,15 +358,21 @@ export default async function ProductDetailPage({
                         <CheckCircle2 className="size-2.5" /> Verified Purchase
                       </span>
                     </div>
-                    <span className="text-[11px] text-slate-400">{rev.date}</span>
+                    <span className="text-[11px] text-slate-400">
+                      {rev.date}
+                    </span>
                   </div>
 
                   <div className="mt-1 text-amber-400 text-xs">
                     {"★".repeat(rev.rating)}
                   </div>
 
-                  <h4 className="mt-1 text-xs font-bold text-slate-800">{rev.title}</h4>
-                  <p className="mt-1 text-xs text-slate-600 leading-relaxed">{rev.review}</p>
+                  <h4 className="mt-1 text-xs font-bold text-slate-800">
+                    {rev.title}
+                  </h4>
+                  <p className="mt-1 text-xs text-slate-600 leading-relaxed">
+                    {rev.review}
+                  </p>
                 </div>
               ))}
             </div>
@@ -379,7 +420,9 @@ export default async function ProductDetailPage({
                 <div className="p-4">
                   <b className="block text-sm">{rp.name}</b>
                   <p className="mt-1 text-xs text-slate-500">{rp.material}</p>
-                  <b className="mt-3 block text-base">{inr(rp.price.toNumber())}</b>
+                  <b className="mt-3 block text-base">
+                    {inr(rp.price.toNumber())}
+                  </b>
                 </div>
               </Link>
             ))}

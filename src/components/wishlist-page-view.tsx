@@ -44,7 +44,10 @@ function getServerSnapshot(): string {
   return "[]";
 }
 
-export function WishlistPageView({ allProducts, isLoggedIn }: WishlistPageViewProps) {
+export function WishlistPageView({
+  allProducts,
+  isLoggedIn,
+}: WishlistPageViewProps) {
   const wishlistJson = useSyncExternalStore(
     subscribe,
     getWishlistSnapshot,
@@ -92,7 +95,9 @@ export function WishlistPageView({ allProducts, isLoggedIn }: WishlistPageViewPr
             Your Wishlist.
           </h1>
           <p className="mt-1 text-xs sm:text-sm text-slate-600">
-            {savedProducts.length} {savedProducts.length === 1 ? "piece" : "pieces"} saved from verified artisans.
+            {savedProducts.length}{" "}
+            {savedProducts.length === 1 ? "piece" : "pieces"} saved from
+            verified artisans.
           </p>
         </div>
 
@@ -166,7 +171,10 @@ export function WishlistPageView({ allProducts, isLoggedIn }: WishlistPageViewPr
                     {p.category}
                   </span>
                   <h3 className="mt-0.5 text-xs sm:text-sm font-bold text-slate-900 line-clamp-1">
-                    <Link href={`/product/${p.id}`} className="hover:text-[#cf5036]">
+                    <Link
+                      href={`/product/${p.id}`}
+                      className="hover:text-[#cf5036]"
+                    >
                       {p.name}
                     </Link>
                   </h3>
@@ -178,7 +186,9 @@ export function WishlistPageView({ allProducts, isLoggedIn }: WishlistPageViewPr
 
               {/* Action Footer */}
               <div className="border-t border-slate-100 p-3 pt-2 flex items-center justify-between">
-                <b className="text-sm font-black text-slate-900">{inr(p.price)}</b>
+                <b className="text-sm font-black text-slate-900">
+                  {inr(p.price)}
+                </b>
                 <AddToCartButton
                   productId={p.id}
                   productName={p.name}
@@ -199,13 +209,15 @@ export function WishlistPageView({ allProducts, isLoggedIn }: WishlistPageViewPr
             Your Wishlist is Empty
           </h2>
           <p className="mt-1.5 text-xs text-slate-500 leading-relaxed">
-            Discover rescued-material pieces on the marketplace and tap the heart icon on any product to save it here for later.
+            Discover rescued-material pieces on the marketplace and tap the
+            heart icon on any product to save it here for later.
           </p>
           <Link
             href="/marketplace"
             className="btn btn-primary mt-6 text-xs font-bold inline-flex items-center gap-1.5 shadow-sm"
           >
-            <Store className="size-3.5" /> Explore Marketplace <ArrowRight className="size-3.5" />
+            <Store className="size-3.5" /> Explore Marketplace{" "}
+            <ArrowRight className="size-3.5" />
           </Link>
         </div>
       )}

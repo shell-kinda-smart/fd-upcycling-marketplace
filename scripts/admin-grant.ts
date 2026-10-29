@@ -24,7 +24,9 @@ async function main() {
     data: { role: "ADMIN" },
   });
 
-  console.log(`✓ Success: Granted ADMIN role to ${updated.name} (${updated.email}).`);
+  console.log(
+    `✓ Success: Granted ADMIN role to ${updated.name} (${updated.email}).`,
+  );
 }
 
 main()

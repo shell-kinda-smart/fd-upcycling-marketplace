@@ -8,10 +8,11 @@ ReThread is a full-stack, multi-page marketplace built with **Next.js 16 (App Ro
 
 ## 🚀 Working Features (100% Complete)
 
-- **Authentication & Roles**: Register, sign in, sign out, and manage roles (`BUYER`, `CREATOR`, `BOTH`, `ADMIN`) via Auth.js session cookies and bcrypt password hashing.
+- **Authentication & Roles**: Register, sign in, sign out, and use dedicated Buyer, Seller, Buyer & Seller, or Administrator access. (The database keeps `CREATOR` as the internal name for the Seller role.)
+- **Role-based Workspace (`/workspace`)**: Each account sees only the relevant buyer, seller, and administrator activity, counts, and actions in one clear workspace.
 - **Product Catalog & Search**: Browse 50 curated upcycled products with high-resolution photos, real-time keyword search, category filtering, and price sorting.
 - **Dedicated Product Detail Page (`/product/[id]`)**: High-res image view, craft story, rescued material provenance, circular eco-impact metrics (CO2e, water saved, waste diverted), and direct buying/trading.
-- **Creator Studio (`/sell`)**: Publish new upcycled creations with category, pricing, material story, photo URL/path, and trade eligibility.
+- **Seller Studio (`/sell`)**: Publish new upcycled creations with category, pricing, material story, photo URL/path, and trade eligibility.
 - **Inventory Lifecycle (`/listings`)**: Sellers can update product statuses (`ACTIVE`, `SOLD`, `ARCHIVED`) and manage active stock.
 - **Persistent Shopping Bag (`/cart`)**: User-bound database cart, quantity calculations, item removal, and subtotal summaries.
 - **Razorpay Demo Payment Gateway**:
@@ -23,7 +24,7 @@ ReThread is a full-stack, multi-page marketplace built with **Next.js 16 (App Ro
   - Live animated gateway progression and real transaction reference IDs (`pay_demo_...`).
   - **Zero external accounts or merchant verification needed.**
 - **Order Management & Receipts (`/orders`)**: Persistent order history with items, thumbnails, shipping address, status badges, and Razorpay transaction IDs.
-- **Peer-to-Peer Trade Hub (`/trades`)**: Full circular swap system. Creators can review incoming swap offers and click **Accept Trade** (auto-marks item as sold) or **Decline**. Buyers can track sent offers.
+- **Peer-to-Peer Trade Hub (`/trades`)**: Full circular swap system. Sellers can review incoming swap offers and click **Accept Trade** (auto-marks item as sold) or **Decline**. Buyers can track sent offers.
 - **Platform Admin Dashboard (`/admin`)**:
   - Catalog metrics, gross revenue, user count, and trade volume.
   - Product moderation (status toggling & deletion).
@@ -54,12 +55,13 @@ Open [http://localhost:3001](http://localhost:3001).
 
 ### Demo Credentials
 
-| Role | Email | Password | Access |
-|---|---|---|---|
-| **Admin & Maker** | `demo.maker@example.com` | `DemoPass123!` | Marketplace, Sell, Trades, Orders, Admin Panel |
-| **Studio Creator** | `studio@rethread.demo` | `StudioDemo123!` | Creator inventory and catalogue |
+| Role              | Email                    | Password         | Access                                         |
+| ----------------- | ------------------------ | ---------------- | ---------------------------------------------- |
+| **Admin & Maker** | `demo.maker@example.com` | `DemoPass123!`   | Marketplace, Sell, Trades, Orders, Admin Panel |
+| **Seller**        | `studio@rethread.demo`   | `StudioDemo123!` | Seller inventory and catalogue                 |
 
-*To grant admin access to any newly registered user:*
+_To grant admin access to any newly registered user:_
+
 ```bash
 npm run admin:grant -- your-email@example.com
 ```

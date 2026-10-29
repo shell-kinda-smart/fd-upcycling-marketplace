@@ -26,8 +26,12 @@ export const productSchema = z.object({
     .max(500)
     .optional()
     .refine(
-      (val) => !val || val.startsWith("/") || val.startsWith("http://") || val.startsWith("https://"),
-      { message: "Must be a valid web URL or a local /products path" }
+      (val) =>
+        !val ||
+        val.startsWith("/") ||
+        val.startsWith("http://") ||
+        val.startsWith("https://"),
+      { message: "Must be a valid web URL or a local /products path" },
     )
     .or(z.literal("")),
   tradeEnabled: z.string().optional(),

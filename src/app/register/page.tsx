@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BadgeCheck, ShoppingBag, Store } from "lucide-react";
 import { registerAction } from "@/app/actions";
 export default async function Register({
   searchParams,
@@ -7,11 +8,31 @@ export default async function Register({
 }) {
   const q = await searchParams;
   return (
-    <main className="grid min-h-[calc(100vh-80px)] place-items-center p-6">
-      <section className="card w-full max-w-md p-9">
-        <p className="eyebrow">JOIN THE CIRCULAR MARKET</p>
-        <h1 className="mt-2 text-4xl font-black tracking-[-.05em]">
-          Create your account.
+    <main className="auth-shell">
+      <section className="auth-aside">
+        <p className="section-kicker">
+          <BadgeCheck className="size-3.5" /> ReThread membership
+        </p>
+        <h1>Choose how you take part.</h1>
+        <p>
+          Buy one-of-one pieces, sell upcycled work, or do both from one
+          account.
+        </p>
+        <div className="auth-role-preview">
+          <span>
+            <ShoppingBag className="size-4" /> Buyer: shop, save, order and
+            trade.
+          </span>
+          <span>
+            <Store className="size-4" /> Seller: publish, manage stock and
+            accept swaps.
+          </span>
+        </div>
+      </section>
+      <section className="card auth-card">
+        <p className="eyebrow">CREATE ACCOUNT</p>
+        <h1 className="mt-2 text-3xl font-black tracking-[-.05em]">
+          Start your marketplace account.
         </h1>
         {q.error && (
           <p className="mt-4 bg-red-50 p-3 text-sm text-red-700">
@@ -40,9 +61,9 @@ export default async function Register({
           <label>
             Role
             <select className="mt-1" name="role">
-              <option value="BOTH">Buyer & creator</option>
+              <option value="BOTH">Buyer & seller</option>
               <option value="BUYER">Buyer</option>
-              <option value="CREATOR">Creator</option>
+              <option value="CREATOR">Seller</option>
             </select>
           </label>
           <label>

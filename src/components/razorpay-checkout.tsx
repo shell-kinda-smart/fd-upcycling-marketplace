@@ -87,7 +87,9 @@ export function RazorpayCheckout({
   const handleOpenCheckout = (e: React.FormEvent) => {
     e.preventDefault();
     if (!address.trim() || address.trim().length < 5) {
-      alert("Please enter a complete delivery address (at least 5 characters).");
+      alert(
+        "Please enter a complete delivery address (at least 5 characters).",
+      );
       return;
     }
     if (paymentMethod === "COD") {
@@ -111,11 +113,16 @@ export function RazorpayCheckout({
             contact: "9876543210",
           },
           theme: { color: "#0c2340" },
-          handler: function (response: { razorpay_payment_id?: string; razorpay_order_id?: string }) {
+          handler: function (response: {
+            razorpay_payment_id?: string;
+            razorpay_order_id?: string;
+          }) {
             executeOrder(
               "RAZORPAY",
-              response.razorpay_payment_id || `pay_${Math.random().toString(36).substring(2, 10).toUpperCase()}`,
-              response.razorpay_order_id || `order_${Math.random().toString(36).substring(2, 10).toUpperCase()}`,
+              response.razorpay_payment_id ||
+                `pay_${Math.random().toString(36).substring(2, 10).toUpperCase()}`,
+              response.razorpay_order_id ||
+                `order_${Math.random().toString(36).substring(2, 10).toUpperCase()}`,
             );
           },
         });
@@ -163,7 +170,9 @@ export function RazorpayCheckout({
         </label>
 
         <div className="w-full">
-          <span className="block text-xs font-bold text-slate-700">Payment Option</span>
+          <span className="block text-xs font-bold text-slate-700">
+            Payment Option
+          </span>
           <div className="mt-2 space-y-2.5 w-full">
             <div
               onClick={() => setPaymentMethod("RAZORPAY")}
@@ -241,7 +250,8 @@ export function RazorpayCheckout({
             </>
           ) : paymentMethod === "RAZORPAY" ? (
             <>
-              <Lock className="size-4" /> Pay ₹{total.toLocaleString("en-IN")} Online
+              <Lock className="size-4" /> Pay ₹{total.toLocaleString("en-IN")}{" "}
+              Online
             </>
           ) : (
             <>
@@ -266,9 +276,7 @@ export function RazorpayCheckout({
                     <h3 className="text-sm font-black tracking-tight">
                       ReThread Marketplace
                     </h3>
-                    <p className="text-[10px] text-blue-200">
-                      Secure Checkout
-                    </p>
+                    <p className="text-[10px] text-blue-200">Secure Checkout</p>
                   </div>
                 </div>
                 <div className="text-right">
@@ -283,7 +291,9 @@ export function RazorpayCheckout({
 
               {/* User preview bar */}
               <div className="mt-3 flex items-center justify-between rounded bg-white/10 px-3 py-1.5 text-[11px] text-blue-100">
-                <span className="truncate max-w-[200px]">{user.email || "shopper@rethread.market"}</span>
+                <span className="truncate max-w-[200px]">
+                  {user.email || "shopper@rethread.market"}
+                </span>
                 <span className="font-mono text-[10px]">{phone}</span>
               </div>
             </div>
@@ -345,7 +355,9 @@ export function RazorpayCheckout({
                           <button
                             key={app}
                             type="button"
-                            onClick={() => setUpiId(`user.${app.toLowerCase()}@upi`)}
+                            onClick={() =>
+                              setUpiId(`user.${app.toLowerCase()}@upi`)
+                            }
                             className="flex flex-col items-center justify-center rounded-lg border border-slate-200 p-2 hover:border-[#0b72e7] hover:bg-blue-50/50"
                           >
                             <span className="size-7 rounded-full bg-slate-100 text-center text-xs font-black leading-7 text-slate-800">
@@ -505,7 +517,8 @@ export function RazorpayCheckout({
                   Securing Transaction...
                 </h4>
                 <p className="mt-1 text-xs text-slate-500">
-                  Creating encrypted channel for ₹{total.toLocaleString("en-IN")}
+                  Creating encrypted channel for ₹
+                  {total.toLocaleString("en-IN")}
                 </p>
               </div>
             )}
@@ -531,7 +544,10 @@ export function RazorpayCheckout({
                   Payment Successful!
                 </h4>
                 <p className="mt-1 text-xs font-mono text-slate-600">
-                  Ref ID: <span className="font-bold text-slate-900">{generatedPayId}</span>
+                  Ref ID:{" "}
+                  <span className="font-bold text-slate-900">
+                    {generatedPayId}
+                  </span>
                 </p>
                 <p className="mt-3 text-xs text-green-700 font-semibold">
                   Completing your order...

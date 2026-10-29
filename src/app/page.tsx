@@ -27,31 +27,30 @@ export default function Home() {
           </h1>
 
           <p className="mt-5 max-w-xl text-base sm:text-lg leading-relaxed text-slate-600">
-            A curated circular marketplace for independent designers and conscious collectors.
-            Discover, buy, and exchange one-of-a-kind upcycled garments and handcrafted pieces.
+            A curated circular marketplace for independent designers and
+            conscious collectors. Discover, buy, and exchange one-of-a-kind
+            upcycled garments and handcrafted pieces.
           </p>
 
           <div className="mt-7 flex flex-wrap gap-3 sm:gap-4">
-            <Link className="btn btn-primary text-xs sm:text-sm font-bold" href="/marketplace">
+            <Link
+              className="btn btn-primary text-xs sm:text-sm font-bold"
+              href="/marketplace"
+            >
               <ShoppingBag className="size-4" /> Explore marketplace
             </Link>
-            <Link className="btn border border-[#29243d] text-xs sm:text-sm font-bold" href="/sell">
+            <Link
+              className="btn border border-[#29243d] text-xs sm:text-sm font-bold"
+              href="/sell"
+            >
               <Sparkles className="size-4" /> Sell an item{" "}
               <ArrowRight className="size-4" />
             </Link>
           </div>
 
           <div className="mt-10 grid grid-cols-3 gap-2 sm:gap-6 border-t border-slate-200/80 pt-6">
-            <Stat
-              icon={<Leaf />}
-              value="100%"
-              label="Rescued Materials"
-            />
-            <Stat
-              icon={<Sparkles />}
-              value="Unique"
-              label="One-of-a-Kind"
-            />
+            <Stat icon={<Leaf />} value="100%" label="Rescued Materials" />
+            <Stat icon={<Sparkles />} value="Unique" label="One-of-a-Kind" />
             <Stat
               icon={<ShieldCheck />}
               value="Verified"
@@ -151,7 +150,9 @@ export default function Home() {
               </div>
               <div className="p-3 sm:p-4">
                 <div className="flex items-center justify-between">
-                  <b className="font-bold text-slate-900 text-xs sm:text-sm">{cat.name}</b>
+                  <b className="font-bold text-slate-900 text-xs sm:text-sm">
+                    {cat.name}
+                  </b>
                   <span className="text-[10px] font-bold text-slate-400">
                     {cat.count}
                   </span>
@@ -179,9 +180,13 @@ function Stat({
 }) {
   return (
     <div className="border-l-2 border-[#cf5036] pl-2 sm:pl-3 min-w-0">
-      <span className="mb-1 block text-[#cf5036] [&>svg]:size-3.5 sm:[&>svg]:size-4">{icon}</span>
+      <span className="mb-1 block text-[#cf5036] [&>svg]:size-3.5 sm:[&>svg]:size-4">
+        {icon}
+      </span>
       <b className="block text-xs sm:text-base font-black truncate">{value}</b>
-      <small className="text-slate-500 text-[10px] sm:text-xs block truncate">{label}</small>
+      <small className="text-slate-500 text-[10px] sm:text-xs block truncate">
+        {label}
+      </small>
     </div>
   );
 }

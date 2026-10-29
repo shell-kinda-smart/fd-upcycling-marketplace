@@ -27,7 +27,11 @@ function getServerSnapshot(): number {
 }
 
 export function WishlistHeaderCount() {
-  const count = useSyncExternalStore(subscribe, getWishlistCount, getServerSnapshot);
+  const count = useSyncExternalStore(
+    subscribe,
+    getWishlistCount,
+    getServerSnapshot,
+  );
 
   return (
     <Link

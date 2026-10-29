@@ -15,7 +15,8 @@ The objective is to create a dedicated online marketplace where users can buy, s
 3. Products are stored in SQLite and immediately appear in the marketplace.
 4. A buyer adds products to an account-specific cart and places a demo order.
 5. Checkout creates an order and immutable order-item snapshots so history keeps the name and price used at purchase time.
-6. Trade-enabled products accept written proposals, while creators control listing status.
+6. Trade-enabled products accept written proposals, while sellers control listing status.
+7. Buyer, Seller and Administrator permissions are enforced on the server; the workspace shows each role only its relevant tools.
 
 ## 3. Development and implementation
 
@@ -41,9 +42,9 @@ The data model uses relations between users, products, cart items, orders, order
 
 ## 5. Completed and remaining work
 
-The project is approximately **90% complete**. Accounts, profiles, catalog discovery, product creation/management, cart, demo checkout, orders, trade proposals, impact page, database, API, validation, seed data and documentation are complete.
+The classroom project is **feature complete**: accounts, role-based workspaces, profiles, catalogue discovery, seller product management, cart, demo checkout, orders, trade proposals, administrator moderation, impact metrics, database, API, validation, seed data and documentation are complete.
 
-The final 10% is production integration: a real payment provider with webhook verification, product image object storage, shipping integration, moderation/admin tooling, cloud deployment and end-to-end browser tests. A real payment secret is intentionally not required for a student demo.
+Only external deployment onboarding remains: choosing a cloud host, adding a real merchant payment account and webhook secrets, and connecting optional shipping or notification providers. Those services need the owner’s commercial accounts and are intentionally outside the offline classroom build.
 
 ## 6. Expected outcome and practical application
 
@@ -51,11 +52,11 @@ The expected outcome is a working niche commerce platform that helps creators ea
 
 ## Technical questions to expect
 
-**Is payment implemented?** The complete checkout/order flow is implemented in demo mode. Production payments require an external provider, secret keys and verified webhooks; the UI never stores raw card data.
+**Is payment implemented?** The complete checkout and order flow is implemented in safe demo mode. A live provider requires the owner’s merchant account, secret keys and verified webhooks; the UI never stores raw card data.
 
 **Why keep OrderItem as well as Product?** It preserves the purchased name, price and quantity even if the seller later edits or removes the product.
 
-**How is ownership enforced?** Product-management queries include both listing ID and authenticated seller ID. Cart and order reads use the authenticated buyer ID.
+**How are roles enforced?** Seller actions check seller capability and product ownership; buyer actions check buyer capability and use the authenticated buyer ID. Administrator actions require the administrator role. These checks run in Server Actions, not only in the UI.
 
 **Why Server Actions?** They keep form mutations server-side with typed code and avoid building unnecessary client fetch wrappers for each form.
 

@@ -39,7 +39,10 @@ function toPriceNumber(val: unknown): number {
   if (typeof val === "number") return val;
   if (!val) return 0;
   if (typeof val === "object" && val !== null) {
-    if ("toNumber" in val && typeof (val as { toNumber?: unknown }).toNumber === "function") {
+    if (
+      "toNumber" in val &&
+      typeof (val as { toNumber?: unknown }).toNumber === "function"
+    ) {
       return (val as { toNumber: () => number }).toNumber();
     }
   }
@@ -82,7 +85,9 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
   const [pincode, setPincode] = useState("110001");
 
   // Payment Selection
-  const [paymentMethod, setPaymentMethod] = useState<"RAZORPAY" | "COD">("RAZORPAY");
+  const [paymentMethod, setPaymentMethod] = useState<"RAZORPAY" | "COD">(
+    "RAZORPAY",
+  );
 
   // Promo Code State
   const [couponInput, setCouponInput] = useState("");
@@ -95,7 +100,9 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
 
   // Razorpay Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<"upi" | "card" | "netbanking">("upi");
+  const [activeTab, setActiveTab] = useState<"upi" | "card" | "netbanking">(
+    "upi",
+  );
   const [upiId, setUpiId] = useState("shopper@okhdfcbank");
   const [cardNumber, setCardNumber] = useState("4111 1111 1111 1111");
   const [cardExpiry, setCardExpiry] = useState("12/28");
@@ -118,7 +125,9 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
   let discountAmount = 0;
   if (appliedCoupon) {
     if (appliedCoupon.discountPercent) {
-      discountAmount = Math.round((subtotal * appliedCoupon.discountPercent) / 100);
+      discountAmount = Math.round(
+        (subtotal * appliedCoupon.discountPercent) / 100,
+      );
     } else if (appliedCoupon.flatDiscount) {
       discountAmount = Math.min(subtotal, appliedCoupon.flatDiscount);
     }
@@ -185,7 +194,9 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
   const handleStartCheckout = (e: React.FormEvent) => {
     e.preventDefault();
     if (!streetAddress.trim() || streetAddress.trim().length < 5) {
-      alert("Please enter a complete delivery address (street/flat name, at least 5 characters).");
+      alert(
+        "Please enter a complete delivery address (street/flat name, at least 5 characters).",
+      );
       return;
     }
     if (!pincode.trim() || pincode.trim().length < 4) {
@@ -211,7 +222,8 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
           prefill: {
             name: fullName,
             email: user.email || "shopper@rethread.market",
-            contact: phoneNumber.replace(/[^0-9]/g, "").slice(-10) || "9876543210",
+            contact:
+              phoneNumber.replace(/[^0-9]/g, "").slice(-10) || "9876543210",
           },
           theme: { color: "#0c2340" },
           handler: function (response: {
@@ -262,11 +274,17 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
         <div className="mx-auto grid size-16 place-items-center rounded-full bg-[#f1ddd0]">
           <ShoppingBag className="size-8 text-[#cf5036]" />
         </div>
-        <h2 className="mt-4 text-xl font-bold text-slate-900">Your bag is empty</h2>
+        <h2 className="mt-4 text-xl font-bold text-slate-900">
+          Your bag is empty
+        </h2>
         <p className="mt-1 text-xs text-slate-500">
-          Discover unique pieces crafted from rescued denim, canvas, and textiles.
+          Discover unique pieces crafted from rescued denim, canvas, and
+          textiles.
         </p>
-        <Link href="/marketplace" className="btn btn-primary mt-6 text-xs font-bold inline-flex items-center gap-2">
+        <Link
+          href="/marketplace"
+          className="btn btn-primary mt-6 text-xs font-bold inline-flex items-center gap-2"
+        >
           Explore Curated Marketplace <ArrowRight className="size-4" />
         </Link>
       </div>
@@ -275,7 +293,10 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
 
   return (
     <div className="w-full">
-      <form onSubmit={handleStartCheckout} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <form
+        onSubmit={handleStartCheckout}
+        className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"
+      >
         {/* LEFT COLUMN: Items, Shipping, Payment Method */}
         <div className="space-y-6 lg:col-span-7 xl:col-span-8">
           {/* Section 1: Items In Bag */}
@@ -406,7 +427,9 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
 
             <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <div>
-                <label className="text-[11px] font-bold text-slate-700">Recipient Name</label>
+                <label className="text-[11px] font-bold text-slate-700">
+                  Recipient Name
+                </label>
                 <input
                   type="text"
                   value={fullName}
@@ -418,7 +441,9 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
               </div>
 
               <div>
-                <label className="text-[11px] font-bold text-slate-700">Contact Number</label>
+                <label className="text-[11px] font-bold text-slate-700">
+                  Contact Number
+                </label>
                 <input
                   type="text"
                   value={phoneNumber}
@@ -430,7 +455,9 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
               </div>
 
               <div className="sm:col-span-2">
-                <label className="text-[11px] font-bold text-slate-700">Street / Flat / Studio Address</label>
+                <label className="text-[11px] font-bold text-slate-700">
+                  Street / Flat / Studio Address
+                </label>
                 <textarea
                   value={streetAddress}
                   onChange={(e) => setStreetAddress(e.target.value)}
@@ -442,7 +469,9 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
               </div>
 
               <div>
-                <label className="text-[11px] font-bold text-slate-700">City / District</label>
+                <label className="text-[11px] font-bold text-slate-700">
+                  City / District
+                </label>
                 <input
                   type="text"
                   value={city}
@@ -454,7 +483,9 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="text-[11px] font-bold text-slate-700">State</label>
+                  <label className="text-[11px] font-bold text-slate-700">
+                    State
+                  </label>
                   <input
                     type="text"
                     value={state}
@@ -464,7 +495,9 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
                   />
                 </div>
                 <div>
-                  <label className="text-[11px] font-bold text-slate-700">PIN Code</label>
+                  <label className="text-[11px] font-bold text-slate-700">
+                    PIN Code
+                  </label>
                   <input
                     type="text"
                     value={pincode}
@@ -518,7 +551,8 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
                       </span>
                     </div>
                     <p className="mt-1 text-xs text-slate-600">
-                      UPI (Google Pay, PhonePe, Paytm, BHIM) · Credit & Debit Cards (Visa, Mastercard, RuPay) · Netbanking
+                      UPI (Google Pay, PhonePe, Paytm, BHIM) · Credit & Debit
+                      Cards (Visa, Mastercard, RuPay) · Netbanking
                     </p>
                     <div className="mt-2 flex items-center gap-1 text-[11px] text-emerald-800 font-bold">
                       <ShieldCheck className="size-3.5 text-emerald-700" />
@@ -554,7 +588,8 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
                       Cash on Delivery (COD)
                     </span>
                     <p className="mt-1 text-xs text-slate-500">
-                      Pay via cash or UPI directly upon courier delivery or campus pickup.
+                      Pay via cash or UPI directly upon courier delivery or
+                      campus pickup.
                     </p>
                   </div>
                 </div>
@@ -575,7 +610,9 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
             <div className="mt-4 space-y-2.5 text-xs text-slate-600">
               <div className="flex justify-between">
                 <span>Items Subtotal ({items.length})</span>
-                <span className="font-mono font-bold text-slate-900">{inr(subtotal)}</span>
+                <span className="font-mono font-bold text-slate-900">
+                  {inr(subtotal)}
+                </span>
               </div>
 
               {appliedCoupon && (
@@ -599,7 +636,9 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
               </div>
 
               <div className="border-t border-slate-200 pt-3 flex items-baseline justify-between">
-                <span className="text-sm font-bold text-slate-900">Total Payable</span>
+                <span className="text-sm font-bold text-slate-900">
+                  Total Payable
+                </span>
                 <span className="font-mono text-2xl font-black text-slate-900">
                   {inr(finalTotal)}
                 </span>
@@ -641,10 +680,13 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
                     </button>
                   </div>
                   {couponError && (
-                    <p className="mt-1 text-[11px] text-red-600 font-semibold">{couponError}</p>
+                    <p className="mt-1 text-[11px] text-red-600 font-semibold">
+                      {couponError}
+                    </p>
                   )}
                   <p className="mt-1.5 text-[10px] text-slate-400">
-                    Try <strong>CIRCULAR10</strong> for 10% off or <strong>ECO2026</strong> for ₹200 off.
+                    Try <strong>CIRCULAR10</strong> for 10% off or{" "}
+                    <strong>ECO2026</strong> for ₹200 off.
                   </p>
                 </div>
               )}
@@ -659,11 +701,13 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
               >
                 {isPending ? (
                   <>
-                    <Loader2 className="size-4 animate-spin" /> Finalizing Order...
+                    <Loader2 className="size-4 animate-spin" /> Finalizing
+                    Order...
                   </>
                 ) : paymentMethod === "RAZORPAY" ? (
                   <>
-                    <Lock className="size-4 text-[#f3c94b]" /> Pay {inr(finalTotal)} Online
+                    <Lock className="size-4 text-[#f3c94b]" /> Pay{" "}
+                    {inr(finalTotal)} Online
                   </>
                 ) : (
                   <>
@@ -704,8 +748,12 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
                     <ShieldCheck className="size-5" />
                   </div>
                   <div>
-                    <b className="block text-sm font-black leading-tight">Secure Payment Gateway</b>
-                    <span className="text-[10px] text-blue-200">256-Bit SSL Encrypted</span>
+                    <b className="block text-sm font-black leading-tight">
+                      Secure Payment Gateway
+                    </b>
+                    <span className="text-[10px] text-blue-200">
+                      256-Bit SSL Encrypted
+                    </span>
                   </div>
                 </div>
 
@@ -727,7 +775,9 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
               </div>
 
               <div className="mt-3 flex items-center justify-between rounded bg-white/10 px-3 py-1.5 text-[11px] text-blue-100">
-                <span className="truncate max-w-[200px]">{user.email || "shopper@rethread.market"}</span>
+                <span className="truncate max-w-[200px]">
+                  {user.email || "shopper@rethread.market"}
+                </span>
                 <span className="font-mono text-[10px]">{phoneNumber}</span>
               </div>
             </div>
@@ -778,15 +828,31 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
                     <div className="space-y-4">
                       <div className="grid grid-cols-4 gap-2">
                         {[
-                          { name: "GPay", color: "bg-blue-50 text-blue-700 border-blue-200" },
-                          { name: "PhonePe", color: "bg-purple-50 text-purple-700 border-purple-200" },
-                          { name: "Paytm", color: "bg-sky-50 text-sky-700 border-sky-200" },
-                          { name: "BHIM", color: "bg-green-50 text-green-700 border-green-200" },
+                          {
+                            name: "GPay",
+                            color: "bg-blue-50 text-blue-700 border-blue-200",
+                          },
+                          {
+                            name: "PhonePe",
+                            color:
+                              "bg-purple-50 text-purple-700 border-purple-200",
+                          },
+                          {
+                            name: "Paytm",
+                            color: "bg-sky-50 text-sky-700 border-sky-200",
+                          },
+                          {
+                            name: "BHIM",
+                            color:
+                              "bg-green-50 text-green-700 border-green-200",
+                          },
                         ].map((app) => (
                           <button
                             key={app.name}
                             type="button"
-                            onClick={() => setUpiId(`shopper@${app.name.toLowerCase()}`)}
+                            onClick={() =>
+                              setUpiId(`shopper@${app.name.toLowerCase()}`)
+                            }
                             className={`rounded border p-2 text-center text-xs font-black transition hover:scale-105 ${app.color}`}
                           >
                             {app.name}
@@ -802,7 +868,9 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
                       </div>
 
                       <div>
-                        <label className="text-[11px] font-bold text-slate-700">UPI ID / VPA</label>
+                        <label className="text-[11px] font-bold text-slate-700">
+                          UPI ID / VPA
+                        </label>
                         <input
                           type="text"
                           value={upiId}
@@ -817,7 +885,9 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
                   {activeTab === "card" && (
                     <div className="space-y-3">
                       <div>
-                        <label className="text-[11px] font-bold text-slate-700">Card Number</label>
+                        <label className="text-[11px] font-bold text-slate-700">
+                          Card Number
+                        </label>
                         <input
                           type="text"
                           value={cardNumber}
@@ -827,7 +897,9 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
                       </div>
                       <div className="grid grid-cols-2 gap-2">
                         <div>
-                          <label className="text-[11px] font-bold text-slate-700">Expiry (MM/YY)</label>
+                          <label className="text-[11px] font-bold text-slate-700">
+                            Expiry (MM/YY)
+                          </label>
                           <input
                             type="text"
                             value={cardExpiry}
@@ -836,7 +908,9 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
                           />
                         </div>
                         <div>
-                          <label className="text-[11px] font-bold text-slate-700">CVV</label>
+                          <label className="text-[11px] font-bold text-slate-700">
+                            CVV
+                          </label>
                           <input
                             type="password"
                             maxLength={4}
@@ -855,24 +929,31 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
                   {/* TAB 3: NETBANKING */}
                   {activeTab === "netbanking" && (
                     <div className="space-y-3">
-                      <label className="text-[11px] font-bold text-slate-700">Select Bank</label>
+                      <label className="text-[11px] font-bold text-slate-700">
+                        Select Bank
+                      </label>
                       <div className="grid grid-cols-2 gap-2">
-                        {["HDFC Bank", "ICICI Bank", "SBI", "Axis Bank", "Kotak Bank", "Punjab National"].map(
-                          (bank) => (
-                            <button
-                              key={bank}
-                              type="button"
-                              onClick={() => setSelectedBank(bank)}
-                              className={`rounded border p-2.5 text-left text-xs font-bold transition ${
-                                selectedBank === bank
-                                  ? "border-[#0c2340] bg-blue-50 text-[#0c2340]"
-                                  : "border-slate-200 bg-white hover:border-slate-300"
-                              }`}
-                            >
-                              {bank}
-                            </button>
-                          ),
-                        )}
+                        {[
+                          "HDFC Bank",
+                          "ICICI Bank",
+                          "SBI",
+                          "Axis Bank",
+                          "Kotak Bank",
+                          "Punjab National",
+                        ].map((bank) => (
+                          <button
+                            key={bank}
+                            type="button"
+                            onClick={() => setSelectedBank(bank)}
+                            className={`rounded border p-2.5 text-left text-xs font-bold transition ${
+                              selectedBank === bank
+                                ? "border-[#0c2340] bg-blue-50 text-[#0c2340]"
+                                : "border-slate-200 bg-white hover:border-slate-300"
+                            }`}
+                          >
+                            {bank}
+                          </button>
+                        ))}
                       </div>
                     </div>
                   )}
@@ -885,7 +966,8 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
                     onClick={handleProcessPayment}
                     className="btn btn-primary w-full py-3 text-sm font-black flex items-center justify-center gap-2 !bg-[#0c2340] hover:!bg-[#15345d]"
                   >
-                    <Lock className="size-4 text-[#f3c94b]" /> Pay {inr(finalTotal)}
+                    <Lock className="size-4 text-[#f3c94b]" /> Pay{" "}
+                    {inr(finalTotal)}
                   </button>
                   <p className="mt-2 text-center text-[10px] text-slate-400">
                     Secured Gateway · 256-Bit SSL Handshake
@@ -898,8 +980,12 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
             {paymentState === "processing" && (
               <div className="p-8 text-center space-y-4">
                 <Loader2 className="mx-auto size-12 animate-spin text-[#0c2340]" />
-                <h3 className="text-base font-black text-slate-900">Connecting to Bank Switch...</h3>
-                <p className="text-xs text-slate-500">Initiating 256-bit encrypted transaction.</p>
+                <h3 className="text-base font-black text-slate-900">
+                  Connecting to Bank Switch...
+                </h3>
+                <p className="text-xs text-slate-500">
+                  Initiating 256-bit encrypted transaction.
+                </p>
               </div>
             )}
 
@@ -907,8 +993,12 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
             {paymentState === "verifying" && (
               <div className="p-8 text-center space-y-4">
                 <Loader2 className="mx-auto size-12 animate-spin text-emerald-600" />
-                <h3 className="text-base font-black text-slate-900">Verifying Payment...</h3>
-                <p className="text-xs text-slate-500 font-mono">Reference: {generatedPayId}</p>
+                <h3 className="text-base font-black text-slate-900">
+                  Verifying Payment...
+                </h3>
+                <p className="text-xs text-slate-500 font-mono">
+                  Reference: {generatedPayId}
+                </p>
               </div>
             )}
 
@@ -918,9 +1008,12 @@ export function CheckoutView({ items, user }: CheckoutViewProps) {
                 <div className="mx-auto grid size-14 place-items-center rounded-full bg-emerald-100 text-emerald-600">
                   <CheckCircle2 className="size-8" />
                 </div>
-                <h3 className="text-base font-black text-slate-900">Payment Confirmed!</h3>
+                <h3 className="text-base font-black text-slate-900">
+                  Payment Confirmed!
+                </h3>
                 <p className="text-xs text-slate-600">
-                  Order placed successfully. Redirecting to your order confirmation receipt...
+                  Order placed successfully. Redirecting to your order
+                  confirmation receipt...
                 </p>
               </div>
             )}

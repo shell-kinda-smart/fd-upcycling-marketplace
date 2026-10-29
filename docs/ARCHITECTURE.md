@@ -1,7 +1,7 @@
 # Architecture
 
 ```text
-Customer / Creator browser
+Buyer / Seller / Administrator browser
   └─ Next.js pages + Tailwind UI
        ├─ Auth.js session
        ├─ Server Actions
@@ -19,6 +19,13 @@ Customer / Creator browser
 - `CartItem` has a compound unique key on user and product, so adding again increases quantity.
 - `Order` contains `OrderItem` snapshots and a payment/status field.
 - `TradeProposal` connects a requester to a trade-enabled product.
+
+## Role boundary
+
+- **Buyer** accounts can browse, add items to a bag, check out and send trade proposals.
+- **Seller** accounts can publish listings, manage only their own inventory and respond to incoming trade proposals.
+- **Administrator** accounts can access moderation, order fulfillment and role management.
+- The internal Prisma enum calls the Seller value `CREATOR`; the product interface consistently calls it Seller. Server Actions enforce these capabilities before database changes.
 
 ## Example product flow
 

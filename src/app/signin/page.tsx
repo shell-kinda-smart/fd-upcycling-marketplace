@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Sparkles } from "lucide-react";
+import { ShieldCheck, Sparkles } from "lucide-react";
 import { loginAction } from "@/app/actions";
 
 export default function SignIn() {
@@ -20,8 +20,18 @@ export default function SignIn() {
   };
 
   return (
-    <main className="grid min-h-[calc(100vh-80px)] place-items-center p-6">
-      <section className="card w-full max-w-md p-8 sm:p-9 shadow-md">
+    <main className="auth-shell auth-shell-compact">
+      <section className="auth-aside">
+        <p className="section-kicker">
+          <ShieldCheck className="size-3.5" /> Secure workspace
+        </p>
+        <h1>Back to circular commerce.</h1>
+        <p>
+          Buyers, sellers and administrators each see the tools that match their
+          account role.
+        </p>
+      </section>
+      <section className="card auth-card">
         <p className="eyebrow">WELCOME BACK</p>
         <h1 className="mt-2 text-3xl font-black tracking-[-.05em] sm:text-4xl">
           Sign in to ReThread.
@@ -47,12 +57,16 @@ export default function SignIn() {
           <div className="mt-2 flex flex-col gap-2">
             <button
               type="button"
-              onClick={() => fillCredentials("demo.maker@example.com", "DemoPass123!")}
+              onClick={() =>
+                fillCredentials("demo.maker@example.com", "DemoPass123!")
+              }
               className="flex items-center justify-between rounded border border-amber-200 bg-white p-2 text-left transition hover:border-[#cf5036]"
             >
               <div>
                 <b className="block text-slate-900">demo.maker@example.com</b>
-                <span className="text-[10px] text-slate-500">Role: ADMIN & MAKER</span>
+                <span className="text-[10px] text-slate-500">
+                  Role: ADMIN & SELLER
+                </span>
               </div>
               <span className="rounded bg-[#f3c94b] px-1.5 py-0.5 text-[10px] font-bold text-[#29243d]">
                 Auto Fill
@@ -61,12 +75,14 @@ export default function SignIn() {
 
             <button
               type="button"
-              onClick={() => fillCredentials("studio@rethread.demo", "StudioDemo123!")}
+              onClick={() =>
+                fillCredentials("studio@rethread.demo", "StudioDemo123!")
+              }
               className="flex items-center justify-between rounded border border-amber-200 bg-white p-2 text-left transition hover:border-[#cf5036]"
             >
               <div>
                 <b className="block text-slate-900">studio@rethread.demo</b>
-                <span className="text-[10px] text-slate-500">Role: CREATOR</span>
+                <span className="text-[10px] text-slate-500">Role: SELLER</span>
               </div>
               <span className="rounded bg-slate-200 px-1.5 py-0.5 text-[10px] font-bold text-slate-700">
                 Auto Fill
@@ -105,8 +121,11 @@ export default function SignIn() {
         </form>
 
         <p className="mt-6 text-center text-xs text-slate-600">
-          New creator or buyer?{" "}
-          <Link className="font-bold text-[#cf5036] hover:underline" href="/register">
+          New buyer or seller?{" "}
+          <Link
+            className="font-bold text-[#cf5036] hover:underline"
+            href="/register"
+          >
             Create an account
           </Link>
         </p>

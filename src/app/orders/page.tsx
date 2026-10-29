@@ -13,6 +13,7 @@ import {
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { inr } from "@/lib/commerce";
+import { canBuy } from "@/lib/access";
 
 export default async function Orders({
   searchParams,
@@ -23,17 +24,24 @@ export default async function Orders({
   if (!s?.user.id) redirect("/signin");
   const params = await searchParams;
 
-  const orders = await prisma.order.findMany({
-    where: { buyerId: s.user.id },
-    include: {
-      items: {
-        include: {
-          product: true,
+  const [user, orders] = await Promise.all([
+    prisma.user.findUnique({
+      where: { id: s.user.id },
+      select: { role: true },
+    }),
+    prisma.order.findMany({
+      where: { buyerId: s.user.id },
+      include: {
+        items: {
+          include: {
+            product: true,
+          },
         },
       },
-    },
-    orderBy: { createdAt: "desc" },
-  });
+      orderBy: { createdAt: "desc" },
+    }),
+  ]);
+  if (!canBuy(user?.role)) redirect("/workspace?access=buyer");
 
   return (
     <main className="mx-auto min-h-screen max-w-5xl px-3 sm:px-6 py-8 sm:py-14">
@@ -46,7 +54,8 @@ export default async function Orders({
                 Payment Confirmed & Order Placed!
               </h2>
               <p className="mt-1 text-xs sm:text-sm text-green-800">
-                Your transaction has been securely processed. The maker has received your order and will prepare dispatch.
+                Your transaction has been securely processed. The maker has
+                received your order and will prepare dispatch.
               </p>
               {params.pay_id && (
                 <div className="mt-2 inline-flex items-center gap-1.5 rounded bg-green-200/80 px-2.5 py-1 text-[11px] font-mono font-bold text-green-950 break-all">
@@ -66,7 +75,10 @@ export default async function Orders({
             Your orders.
           </h1>
         </div>
-        <Link href="/marketplace" className="btn border border-[#29243d] text-xs font-bold self-start sm:self-auto">
+        <Link
+          href="/marketplace"
+          className="btn border border-[#29243d] text-xs font-bold self-start sm:self-auto"
+        >
           Continue shopping <ArrowRight className="size-3.5" />
         </Link>
       </div>
@@ -80,12 +92,13 @@ export default async function Orders({
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-3.5">
               <div className="min-w-0">
                 <small className="flex items-center gap-1.5 font-mono font-bold text-slate-600 text-xs truncate">
-                  <ReceiptText className="size-3.5 text-[#cf5036] shrink-0" /> ORDER #
-                  {o.id.slice(-8).toUpperCase()}
+                  <ReceiptText className="size-3.5 text-[#cf5036] shrink-0" />{" "}
+                  ORDER #{o.id.slice(-8).toUpperCase()}
                 </small>
                 <div className="mt-1 flex items-center gap-2 text-[11px] text-slate-500">
                   <span>
-                    Placed on {new Date(o.createdAt).toLocaleDateString("en-IN", {
+                    Placed on{" "}
+                    {new Date(o.createdAt).toLocaleDateString("en-IN", {
                       day: "numeric",
                       month: "short",
                       year: "numeric",
@@ -99,7 +112,8 @@ export default async function Orders({
               </div>
 
               <div className="flex flex-wrap items-center gap-2 shrink-0">
-                {o.paymentMethod.toLowerCase().includes("online") || o.paymentMethod.toLowerCase().includes("razorpay") ? (
+                {o.paymentMethod.toLowerCase().includes("online") ||
+                o.paymentMethod.toLowerCase().includes("razorpay") ? (
                   <span className="flex items-center gap-1 rounded bg-[#0c2340] px-2.5 py-1 text-[11px] font-bold text-white">
                     <Lock className="size-3 text-[#f3c94b]" /> Online Payment
                   </span>
@@ -109,7 +123,8 @@ export default async function Orders({
                   </span>
                 )}
                 <b className="flex items-center gap-1 bg-[#f3c94b] px-2.5 py-1 text-[11px] font-black">
-                  <CheckCircle2 className="size-3.5 text-slate-900" /> {o.status}
+                  <CheckCircle2 className="size-3.5 text-slate-900" />{" "}
+                  {o.status}
                 </b>
               </div>
             </div>
@@ -138,7 +153,9 @@ export default async function Orders({
                       )}
                     </div>
                     <div className="min-w-0">
-                      <b className="block font-bold text-slate-900 truncate">{item.productName}</b>
+                      <b className="block font-bold text-slate-900 truncate">
+                        {item.productName}
+                      </b>
                       <span className="text-[11px] text-slate-500">
                         Qty: {item.quantity} × {inr(item.price.toNumber())}
                       </span>
@@ -156,7 +173,10 @@ export default async function Orders({
               <div className="flex items-start gap-1.5 min-w-0">
                 <Truck className="size-3.5 shrink-0 text-slate-400 mt-0.5" />
                 <span className="break-words">
-                  Deliver to: <strong className="text-slate-800">{o.shippingAddress}</strong>
+                  Deliver to:{" "}
+                  <strong className="text-slate-800">
+                    {o.shippingAddress}
+                  </strong>
                 </span>
               </div>
               <div className="text-right sm:shrink-0">
@@ -169,7 +189,10 @@ export default async function Orders({
 
             {o.razorpayPaymentId && (
               <div className="mt-2.5 border-t border-dashed border-slate-200 pt-2 text-[10px] font-mono text-slate-500 break-all">
-                Payment Ref: <strong className="text-slate-700">{o.razorpayPaymentId}</strong>
+                Payment Ref:{" "}
+                <strong className="text-slate-700">
+                  {o.razorpayPaymentId}
+                </strong>
                 {o.razorpayOrderId && ` · Gateway Ref: ${o.razorpayOrderId}`}
               </div>
             )}
@@ -180,11 +203,16 @@ export default async function Orders({
       {!orders.length && (
         <div className="card mt-9 grid place-items-center p-8 sm:p-12 text-center max-w-md mx-auto">
           <PackageOpen className="size-10 text-[#cf5036]" />
-          <p className="mt-3 text-base font-bold text-slate-800">No orders yet.</p>
+          <p className="mt-3 text-base font-bold text-slate-800">
+            No orders yet.
+          </p>
           <p className="mt-1 text-xs text-slate-500">
             Start browsing upcycled pieces created by verified artisans.
           </p>
-          <Link href="/marketplace" className="btn btn-primary mt-4 text-xs font-bold">
+          <Link
+            href="/marketplace"
+            className="btn btn-primary mt-4 text-xs font-bold"
+          >
             Explore marketplace <ArrowRight className="size-3.5" />
           </Link>
         </div>

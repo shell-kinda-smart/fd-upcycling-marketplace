@@ -5,14 +5,15 @@ import {
   ShoppingBag,
   Store,
   UserRound,
-  ArrowRightLeft,
   ShieldCheck,
-  Heart,
+  LayoutDashboard,
+  PackagePlus,
 } from "lucide-react";
 import { auth } from "@/auth";
 import { logoutAction } from "@/app/actions";
 import { prisma } from "@/lib/prisma";
 import { WishlistHeaderCount } from "@/components/wishlist-header-count";
+import { canBuy, canSell, roleLabel } from "@/lib/access";
 
 export async function Header() {
   const session = await auth();
@@ -36,12 +37,22 @@ export async function Header() {
   ]);
 
   const isAdmin = userRecord?.role === "ADMIN";
+  const buyerEnabled = canBuy(userRecord?.role);
+  const sellerEnabled = canSell(userRecord?.role);
 
   const mobileLinks = [
     { href: "/marketplace", label: "Shop", Icon: Store },
-    { href: "/wishlist", label: "Saved", Icon: Heart },
-    { href: "/cart", label: `Bag (${count})`, Icon: ShoppingBag },
-    { href: "/trades", label: "Trades", Icon: ArrowRightLeft },
+    ...(buyerEnabled
+      ? [{ href: "/cart", label: `Bag (${count})`, Icon: ShoppingBag }]
+      : []),
+    ...(sellerEnabled
+      ? [{ href: "/sell", label: "Sell", Icon: PackagePlus }]
+      : []),
+    {
+      href: session ? "/workspace" : "/signin",
+      label: session ? "Workspace" : "Sign In",
+      Icon: LayoutDashboard,
+    },
     {
       href: session ? "/profile" : "/signin",
       label: session ? "Profile" : "Sign In",
@@ -71,24 +82,55 @@ export async function Header() {
             className="hidden items-center gap-4 xl:gap-6 text-xs font-black uppercase tracking-wider lg:flex"
             aria-label="Marketplace navigation"
           >
-            <Link className="nav-link py-1 hover:text-[#cf5036]" href="/marketplace">
+            <Link
+              className="nav-link py-1 hover:text-[#cf5036]"
+              href="/marketplace"
+            >
               Marketplace
-            </Link>
-            <Link className="nav-link py-1 hover:text-[#cf5036]" href="/sell">
-              Sell
-            </Link>
-            <Link className="nav-link py-1 hover:text-[#cf5036]" href="/listings">
-              Listings
-            </Link>
-            <Link className="nav-link py-1 hover:text-[#cf5036]" href="/trades">
-              Trades
-            </Link>
-            <Link className="nav-link py-1 hover:text-[#cf5036]" href="/orders">
-              Orders
             </Link>
             <Link className="nav-link py-1 hover:text-[#cf5036]" href="/impact">
               Impact
             </Link>
+            {buyerEnabled && (
+              <>
+                <Link
+                  className="nav-link py-1 hover:text-[#cf5036]"
+                  href="/orders"
+                >
+                  Orders
+                </Link>
+                <Link
+                  className="nav-link py-1 hover:text-[#cf5036]"
+                  href="/trades"
+                >
+                  Trades
+                </Link>
+              </>
+            )}
+            {sellerEnabled && (
+              <>
+                <Link
+                  className="nav-link py-1 hover:text-[#cf5036]"
+                  href="/sell"
+                >
+                  Sell
+                </Link>
+                <Link
+                  className="nav-link py-1 hover:text-[#cf5036]"
+                  href="/listings"
+                >
+                  Inventory
+                </Link>
+              </>
+            )}
+            {session && (
+              <Link
+                className="nav-link flex items-center gap-1 py-1 hover:text-[#cf5036]"
+                href="/workspace"
+              >
+                <LayoutDashboard className="size-3.5" /> Workspace
+              </Link>
+            )}
             {isAdmin && (
               <Link
                 className="nav-link flex items-center gap-1 rounded bg-purple-100 px-2.5 py-1 text-purple-950 hover:bg-purple-200"
@@ -105,21 +147,25 @@ export async function Header() {
 
             {session?.user ? (
               <>
-                <Link
-                  className="btn border border-[#29243d] !px-2.5 sm:!px-3 !py-2 text-xs"
-                  href="/cart"
-                  aria-label={`Shopping bag with ${count} items`}
-                >
-                  <ShoppingBag className="size-4" />
-                  <span className="hidden sm:inline">Bag</span>
-                  <b className="bg-[#f3c94b] px-1.5 py-0.5 rounded-xs text-[11px]">{count}</b>
-                </Link>
+                {buyerEnabled && (
+                  <Link
+                    className="btn border border-[#29243d] !px-2.5 sm:!px-3 !py-2 text-xs"
+                    href="/cart"
+                    aria-label={`Shopping bag with ${count} items`}
+                  >
+                    <ShoppingBag className="size-4" />
+                    <span className="hidden sm:inline">Bag</span>
+                    <b className="bg-[#f3c94b] px-1.5 py-0.5 rounded-xs text-[11px]">
+                      {count}
+                    </b>
+                  </Link>
+                )}
 
                 <Link
                   className="grid size-9 sm:size-10 place-items-center rounded-full bg-[#29243d] text-xs font-bold text-white transition hover:bg-[#cf5036]"
                   href="/profile"
                   aria-label="Your profile"
-                  title={`${session.user.name || "Profile"} (${userRecord?.role || "USER"})`}
+                  title={`${session.user.name || "Profile"} (${roleLabel(userRecord?.role)})`}
                 >
                   {session.user.name?.slice(0, 2).toUpperCase() || "ME"}
                 </Link>
@@ -135,7 +181,10 @@ export async function Header() {
                 </form>
               </>
             ) : (
-              <Link className="btn border border-[#29243d] !py-2 text-xs" href="/signin">
+              <Link
+                className="btn border border-[#29243d] !py-2 text-xs"
+                href="/signin"
+              >
                 <UserRound className="size-4" /> Sign in
               </Link>
             )}

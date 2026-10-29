@@ -32,7 +32,9 @@ export function AddToCartButton({
     e.stopPropagation();
 
     if (!isLoggedIn) {
-      router.push(`/signin?callbackUrl=${encodeURIComponent(window.location.pathname)}`);
+      router.push(
+        `/signin?callbackUrl=${encodeURIComponent(window.location.pathname)}`,
+      );
       return;
     }
 
@@ -56,9 +58,13 @@ export function AddToCartButton({
             setIsSuccess(false);
             setToastMessage(null);
           }, 2200);
+        } else if (res.error) {
+          setToastMessage(res.error);
+          setTimeout(() => setToastMessage(null), 2600);
         }
       } catch {
-        // Fallback error handling
+        setToastMessage("Could not update your bag. Please try again.");
+        setTimeout(() => setToastMessage(null), 2600);
       }
     });
   };
@@ -138,17 +144,23 @@ export function AddToCartButton({
       </button>
 
       {/* Floating mini popover when clicked from grid */}
-      {isSuccess && (
+      {toastMessage && (
         <div className="absolute bottom-full right-0 mb-2 z-30 whitespace-nowrap rounded-md bg-[#0c2340] px-2.5 py-1 text-[11px] font-bold text-white shadow-xl flex items-center gap-1.5 animate-in fade-in zoom-in-95">
-          <Check className="size-3 text-emerald-400 stroke-[3]" />
-          <span>Added!</span>
-          <button
-            type="button"
-            onClick={() => router.push("/cart")}
-            className="text-[#f3c94b] hover:underline ml-1"
-          >
-            Bag →
-          </button>
+          {isSuccess ? (
+            <>
+              <Check className="size-3 text-emerald-400 stroke-[3]" />
+              <span>Added!</span>
+              <button
+                type="button"
+                onClick={() => router.push("/cart")}
+                className="text-[#f3c94b] hover:underline ml-1"
+              >
+                Bag →
+              </button>
+            </>
+          ) : (
+            <span>{toastMessage}</span>
+          )}
         </div>
       )}
     </div>

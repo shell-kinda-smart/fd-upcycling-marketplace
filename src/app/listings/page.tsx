@@ -6,16 +6,24 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { inr } from "@/lib/commerce";
 import { updateProductStatus } from "@/app/actions";
+import { canSell } from "@/lib/access";
 export default async function Listings() {
   const s = await auth();
   if (!s?.user.id) redirect("/signin");
-  const products = await prisma.product.findMany({
-    where: { sellerId: s.user.id },
-    orderBy: { createdAt: "desc" },
-  });
+  const [user, products] = await Promise.all([
+    prisma.user.findUnique({
+      where: { id: s.user.id },
+      select: { role: true },
+    }),
+    prisma.product.findMany({
+      where: { sellerId: s.user.id },
+      orderBy: { createdAt: "desc" },
+    }),
+  ]);
+  if (!canSell(user?.role)) redirect("/workspace?access=seller");
   return (
     <main className="mx-auto min-h-screen max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-      <p className="eyebrow">PRODUCT MANAGEMENT</p>
+      <p className="eyebrow">SELLER INVENTORY</p>
       <h1 className="mt-2 text-4xl font-black tracking-[-.06em] sm:text-6xl">
         Your listings.
       </h1>
